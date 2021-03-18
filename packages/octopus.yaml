@@ -1,0 +1,376 @@
+#
+# Octopus Agile Integration HACS - https://github.com/markgdev/home-assistant_OctopusAgile
+#
+octopusagile:
+  region_code: !secret octopus_region
+  mpan: !secret octopus_mpan
+  serial: !secret octopus_serial
+  auth: !secret octopus_auth
+  startdate: !secret octopus_startdate
+#  moneymakers:
+#  - switch.waterheater_top_switch: null
+#  - switch.waterheater_bottom_switch: null
+#  - climate.entrance_heater:
+#      params:
+#        temp: 25
+#  - climate.lounge_front_heater:
+#      params:
+#        temp: 25
+#  - climate.lounge_side_heater:
+#      params:
+#        temp: 25
+#  - climate.diningroom_heater:
+#      params:
+#        temp: 25
+#  - climate.office_side_heater:
+#      params:
+#        temp: 25
+#  - climate.office_front_heater:
+#      params:
+#        temp: 25
+#  - climate.kitchen_heater:
+#      params:
+#        temp: 25
+#  timers:
+#  - day_from: today
+#    day_to: tomorrow
+#    entity_id: group.waterheaters
+#    numHrs: 3
+#    params: null
+#    requirements:
+#      - day_from: today
+#        day_to: today
+#        numHrs: 1
+#        time_to: '15:00:00'
+#      - day_from: today
+#        day_to: today
+#        numHrs: 1
+#        time_from: '19:00:00'
+#        time_to: '21:00:00'
+#    time_from: '00:00:00'
+#    time_to: '06:00:00'
+#  run_devices:
+#  - energy_time: 1.0
+#    entity_id: dishwasher_slot
+#    run_before: '08:00:00'
+#    run_time: 1.5
+#  - energy_time: 2.5
+#    entity_id: washingmachine_slot
+#    run_before: '08:00:00'
+#    run_time: 2.5
+#  - energy_time: 2.5
+#    entity_id: tumbledryer_slot
+#    run_before: '08:00:00'
+#    run_time: 2.5
+input_select:
+  # Set the Octopus Price Rate Level
+  octopus_price:
+    name: Octopus Price
+    options:
+      - Peak
+      - Plunge
+      - Low
+      - Medium
+      - High
+      - Standard
+      - Cheap
+
+  octopus_tariff:
+    name: Octopus Tariff
+    options:
+      - Agile
+      - GO
+
+sensor:
+#
+# Octopus Agile Integration HACS - https://github.com/markgdev/home-assistant_OctopusAgile
+#
+- platform: "octopusagile"
+
+#
+# Octopus Agile Sensors - Based on Octoblock
+#
+- platform: template
+  sensors:
+#Best electrocoty time slots based on Octoblock - HACS
+    dishwasherslot:
+      friendly_name: Best Dishwasher Slot
+      value_template: >
+        {% if states("sensor.date_time_iso") == (states("sensor.octopus_dishwasher_time")[:-4]) %}
+          true
+        {% else %}
+          false
+        {% endif %}
+    washingmachineslot:
+      friendly_name: Best Washing Machine Slot
+      value_template: >
+        {% if states("sensor.date_time_iso") == (states("sensor.octopus_washingmachine_time")[:-4]) %}
+          true
+        {% else %}
+          false
+        {% endif %}
+    tumbledryerslot:
+      friendly_name: Best Tumbledryer Slot
+      value_template: >
+        {% if states("sensor.date_time_iso") == (states("sensor.octopus_washingmachine_time")[:-4]) %}
+          true
+        {% else %}
+          false
+        {% endif %}
+    best1hourslot:
+      friendly_name: Best 1Hour Slot
+      value_template: >
+        {% if states("sensor.date_time_iso") == (states("sensor.octopus_best1hour_time")[:-4]) %}
+          true
+        {% else %}
+          false
+        {% endif %}
+    best1hour30minslot:
+      friendly_name: Best 1Hour 30Min Slot
+      value_template: >
+        {% if states("sensor.date_time_iso") == (states("sensor.octopus_best1hour30min_time")[:-4]) %}
+          true
+        {% else %}
+          false
+        {% endif %}
+    best2hourslot:
+      friendly_name: Best 2 Hour Slot
+      value_template: >
+        {% if states("sensor.date_time_iso") == (states("sensor.octopus_best2hour_time")[:-4]) %}
+          true
+        {% else %}
+          false
+        {% endif %}
+    best2hour30minslot:
+      friendly_name: Best 2 Hour 30Min Slot
+      value_template: >
+        {% if states("sensor.date_time_iso") == (states("sensor.octopus_best2hour30min_time")[:-4]) %}
+          true
+        {% else %}
+          false
+        {% endif %}
+    best3hourslot:
+      friendly_name: Best 3 Hour Slot
+      value_template: >
+        {% if states("sensor.date_time_iso") == (states("sensor.octopus_best3hour_time")[:-4]) %}
+          true
+        {% else %}
+          false
+        {% endif %}
+
+    bestdishwashertime:
+      friendly_name: Best Dishwasher Time
+      value_template: >
+        {{now().fromisoformat((states("sensor.octopus_dishwasher_time"))[:-7]).time()}}
+    bestwashingmachinetime:
+      friendly_name: Best Washing Machine Time
+      value_template: >
+        {{now().fromisoformat((states("sensor.octopus_washingmachine_time"))[:-7]).time()}}
+    besttumbledryertime:
+      friendly_name: Best Tumbledryer Time
+      value_template: >
+        {{now().fromisoformat((states("sensor.octopus_tumbledryer_time"))[:-7]).time()}}
+    best30mintime:
+      friendly_name: Best 30Min Time
+      value_template: >
+        {{now().fromisoformat((states("sensor.octopus_best30min_time"))[:-7]).time()}}
+    best1hourtime:
+      friendly_name: Best 1Hour Time
+      value_template: >
+        {{now().fromisoformat((states("sensor.octopus_best1hour_time"))[:-7]).time()}}
+    best1hour30mintime:
+      friendly_name: Best 1Hour 30Min Time
+      value_template: >
+        {{now().fromisoformat((states("sensor.octopus_best1hour30min_time"))[:-7]).time()}}
+    best2hourtime:
+      friendly_name: Best 2Hour Time
+      value_template: >
+        {{now().fromisoformat((states("sensor.octopus_best2hour_time"))[:-7]).time()}}
+    best2hour30time:
+      friendly_name: Best 2Hour 30Min Time
+      value_template: >
+        {{now().fromisoformat((states("sensor.octopus_best2hour30min_time"))[:-7]).time()}}
+    best3hourtime:
+      friendly_name: Best 3Hour Time
+      value_template: >
+        {{now().fromisoformat((states("sensor.octopus_best3hour_time"))[:-7]).time()}}
+
+automation:
+# Set input_select.octopus_price based on p/kWh
+# Octopus Agile
+  - alias: OctopusAgile - Rate Plunge
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.octopus_agile_current_rate
+      below: '0'
+    condition:
+    - condition: time
+      before: '16:00:00'
+      after: '19:00:00'
+    action:
+    - service: input_select.select_option
+      data:
+        option: Plunge
+      entity_id: input_select.octopus_price
+    - service: notify.mandj
+      data:
+        message: Electricity Price Plunge
+
+  - alias: OctopusAgile - Rate Low
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.octopus_agile_current_rate
+      above: '0.01'
+      below: '8'
+    condition:
+    - condition: time
+      before: '16:00:00'
+      after: '19:00:00'
+    action:
+    - service: input_select.select_option
+      data:
+        option: Low
+      entity_id: input_select.octopus_price
+    - service: notify.mandj
+      data:
+        message: Electricity Price Low
+
+  - alias: OctopusAgile - Rate Medium
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.octopus_agile_current_rate
+      below: '15'
+      above: '8.01'
+    condition:
+    - condition: time
+      before: '16:00:00'
+      after: '19:00:00'
+    action:
+    - service: input_select.select_option
+      data:
+        option: Medium
+      entity_id: input_select.octopus_price
+    - service: notify.mandj
+      data:
+        message: Electricity Price Medium
+
+  - alias: OctopusAgile - Rate High
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.octopus_agile_current_rate
+      above: '15.01'
+    condition:
+    - condition: time
+      before: '16:00:00'
+      after: '19:00:00'
+    action:
+    - service: input_select.select_option
+      data:
+        option: High
+      entity_id: input_select.octopus_price
+    - service: notify.mandj
+      data:
+        message: Electricity Price High
+
+  - alias: OctopusAgile - Rate Peak
+    trigger:
+      platform: time
+      at: '16:00:00'
+    condition:
+    - condition: time
+      after: '16:00:00'
+      before: '19:00:00'
+    action:
+    - service: input_select.select_option
+      data:
+        option: Peak
+      entity_id: input_select.octopus_price
+    - service: notify.all_family
+      data:
+        message: Electricity Price Peak
+    - service: notify.mandd
+      data:
+        message: Electricity Price Peak
+
+  - alias: OctopusAgile - MoneyMakers On
+    trigger:
+    - platform: state
+      entity_id: input_select.octopus_price
+      to: Plunge
+    action:
+    - service: switch.turn_on
+      entity_id: group.waterheaters
+
+  - alias: OctopusAgile - MoneyMakers Off
+    trigger:
+    - platform: state
+      entity_id: input_select.octopus_price
+      from: Plunge
+    action:
+    - service: switch.turn_off
+      entity_id: group.waterheaters
+
+  - alias: OctopusAgile - Peak Start
+    trigger:
+    - platform: time
+      at: '16:00:00'
+    action:
+    - service: switch.turn_off
+      entity_id: switch.washing_machine_switch
+    - service: switch.turn_off
+      entity_id: switch.dishwasher_switch
+    - service: switch.turn_off
+      entity_id: group.waterheaters
+    - service: switch.turn_off
+      entity_id: group.dehumidifiers
+    - service: input_boolean.turn_off
+      entity_id: group.battery_forcetime
+    - service: input_boolean.turn_off
+      entity_id: group.battery_backup
+    - service: input_select.set_options
+      data:
+        option: Peak
+      entity_id: input_select.octopus_price
+
+  - alias: OctopusAgile - Peak End
+    trigger:
+    - platform: time
+      at: '18:59:50'
+    action:
+    - service: switch.turn_on
+      entity_id: group.dehumidifiers
+
+# Octopus Go
+# Solax Battery Charging
+  - alias: OctopusGo - Cheap Slot Start
+    trigger:
+    - platform: time
+      at: 00:30:00
+    action:
+    - service: input_boolean.turn_on
+      entity_id: group.battery_forcetime
+    - service: input_select.select_option
+      data:
+        option: Cheap
+      entity_id: input_select.octopus_price
+    - service: input_number.set_value
+      data:
+        value: 95
+      entity_id: input_number.solax_battery_min_energy
+    - delay: 00:00:01
+    - service: input_number.set_value
+      data:
+        value: 95
+      entity_id: input_number.solax_battery_min_energy
+
+  - alias: OctopusGo - Cheap Slot End
+    trigger:
+    - platform: time
+      at: 04:30:00
+    action:
+    - service: input_boolean.turn_off
+      entity_id: group.battery_forcetime
+    - service: input_select.select_option
+      data:
+        option: Standard
+      entity_id: input_select.octopus_price

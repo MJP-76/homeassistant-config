@@ -1,0 +1,2112 @@
+- id: '1513476029431'
+  alias: Blinds - Open Mon-Fri at 8am
+  trigger:
+  - at: 08:00:00
+    platform: time
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - data:
+      entity_id:
+      - cover.lounge_right_blind
+      - cover.lounge_left_blind
+      - cover.office_side_blind
+      - cover.office_front_blind
+      - cover.diningroom1_blind
+      - cover.diningroom2_blind
+      - cover.landing_blind
+      - cover.bedroom1_blind
+      - cover.bedroom2_blind
+      - cover.bedroom3_blind
+      - cover.bedroom4_blind
+    service: cover.open_cover
+  mode: single
+- id: '1514476012331'
+  alias: Blinds - Open Sat-Sun at 9am
+  trigger:
+  - at: 09:00:00
+    platform: time
+  condition:
+  - condition: time
+    weekday:
+    - sat
+    - sun
+  action:
+  - data:
+      entity_id:
+      - cover.lounge_right_blind
+      - cover.lounge_left_blind
+      - cover.office_side_blind
+      - cover.office_front_blind
+      - cover.diningroom1_blind
+      - cover.diningroom2_blind
+      - cover.landing_blind
+      - cover.bedroom1_blind
+      - cover.bedroom2_blind
+      - cover.bedroom3_blind
+      - cover.bedroom4_blind
+    service: cover.open_cover
+  mode: single
+- id: '1513478929431'
+  alias: Blinds - Close at 9pm
+  trigger:
+  - at: '21:00:00'
+    platform: time
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+    - sat
+    - sun
+  action:
+  - data:
+      entity_id:
+      - cover.lounge_right_blind
+      - cover.lounge_left_blind
+      - cover.office_side_blind
+      - cover.office_front_blind
+      - cover.diningroom1_blind
+      - cover.diningroom2_blind
+      - cover.landing_blind
+      - cover.bedroom1_blind
+      - cover.bedroom2_blind
+      - cover.bedroom3_blind
+      - cover.bedroom4_blind
+    service: cover.close_cover
+  mode: single
+- id: '1514476080866'
+  alias: Blinds - Close 15min after sunset
+  trigger:
+  - event: sunset
+    offset: 00:15:00
+    platform: sun
+  condition: []
+  action:
+  - data:
+      entity_id:
+      - cover.lounge_right_blind
+      - cover.lounge_left_blind
+      - cover.office_side_blind
+      - cover.office_front_blind
+      - cover.diningroom1_blind
+      - cover.diningroom2_blind
+      - cover.landing_blind
+      - cover.bedroom1_blind
+      - cover.bedroom2_blind
+      - cover.bedroom3_blind
+      - cover.bedroom4_blind
+    service: cover.close_cover
+  mode: single
+- action:
+  - data:
+      entity_id:
+      - switch.pond_fountain
+      - switch.pond_filter
+    service: switch.turn_on
+  alias: Turn Pond On
+  condition: []
+  id: '1522867599520'
+  trigger:
+  - event: sunrise
+    platform: sun
+- action:
+  - data:
+      entity_id:
+      - switch.pond_fountain
+      - switch.pond_filter
+    service: switch.turn_off
+  alias: Turn Pond Off
+  condition: []
+  id: '1522867719442'
+  trigger:
+  - event: sunset
+    platform: sun
+- id: 1bhjfygsa24436543848
+  alias: Dishwasher - Clean
+  trigger:
+  - entity_id: input_select.dishwasher_status
+    for: 00:30:00
+    platform: state
+    to: Drying
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: input_select.dishwasher_status
+      state: Drying
+  action:
+  - data:
+      message: Dishwasher Clean
+    service: notify.mjp
+  - data:
+      option: Clean
+    entity_id: input_select.dishwasher_status
+    service: input_select.select_option
+  mode: single
+- id: 15328zxcg546354d848
+  alias: Dishwasher - Running
+  trigger:
+  - above: '10'
+    entity_id: sensor.dishwasher_energy_power
+    for: 00:10:00
+    platform: numeric_state
+  condition:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: input_select.dishwasher_status
+      state: drying
+    - condition: state
+      entity_id: input_select.dishwasher_status
+      state: Clean
+    - condition: state
+      entity_id: input_select.dishwasher_status
+      state: idle
+      attribute: hvac_action
+  action:
+  - data:
+      message: Dishwasher Running
+    service: notify.mjp
+  - data:
+      option: Running
+    entity_id: input_select.dishwasher_status
+    service: input_select.select_option
+  mode: single
+- id: '1534443483897'
+  alias: Front Door Opened
+  trigger:
+  - entity_id: switch.front_door
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      message: Front Door Opened
+    service: notify.notify_all
+- id: '1534443635491'
+  alias: Front Door Closed
+  trigger:
+  - entity_id: switch.front_door
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      message: Front Door Closed
+    service: notify.notify_all
+- id: alarm_armed_away
+  alias: '[Alarm] Away Mode Armed'
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.house
+    to: armed_away
+  action:
+  - data:
+      message: Alarm Away Mode Armed
+      target: email/example@gmail.com
+    service: notify.pushbullet
+  - data:
+      message: The house alarm has been switched on in away mode. Goodbye
+    service: notify.example_phone_tts
+- id: alarm_armed_home
+  alias: '[Alarm] Home Mode Armed'
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.house
+    to: armed_home
+  action:
+  - data:
+      message: Alarm Home Mode Armed
+      target: email/example@gmail.com
+    service: notify.pushbullet
+  - data:
+      message: The house alarm has been switched on in home mode. Goodnight
+    service: notify.example_phone_tts
+- id: alarm_arming_away
+  alias: '[Alarm] Away Mode Arming'
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.house
+    to: pending
+  action:
+  - data:
+      message: House alarm activating, ensure all doors and windows are closed
+    service: notify.example_phone_tts
+- id: alarm_disarmed
+  alias: '[Alarm] Disarmed'
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.house
+    to: disarmed
+  action:
+  - service: notify.pushbullet
+    data:
+      message: Alarm Disabled
+      target: email/example@gmail.com
+  - service: switch.turn_off
+    entity_id: switch.siren_switch
+  - data:
+      message: The house alarm has been Deactivated
+    service: notify.example_phone_tts
+- id: alarm_triggered
+  alias: '[Alarm] Triggered'
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.house
+    to: triggered
+  action:
+  - service: switch.turn_on
+    entity_id: switch.siren_switch
+  - service: notify.pushbullet
+    data:
+      message: ALARM TRIGGERED!!! {{ states[states.alarm_control_panel.house.attributes.changed_by.split(".")[0]][
+        states.alarm_control_panel.house.attributes.changed_by.split(".")[1]].name
+        }}
+      target: email/example@gmail.com
+- id: alarm_warning
+  alias: '[Alarm] Warning'
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.house
+    to: warning
+  action:
+  - service: notify.pushbullet
+    data:
+      message: ALARM Warning {{ states[states.alarm_control_panel.house.attributes.changed_by.split(".")[0]][
+        states.alarm_control_panel.house.attributes.changed_by.split(".")[1]].name
+        }}
+      target: email/example@gmail.com
+  - data:
+      message: Hello, the house alarm has been tripped. Please deactivate
+    service: notify.example_phone_tts
+- id: '1558191421458'
+  alias: OctopusGo - WaterHeaters NightRun On
+  trigger:
+  - at: 01:00:00
+    platform: time
+  condition: []
+  action:
+  - service: switch.turn_on
+    data: {}
+    entity_id: group.waterheaters
+  mode: single
+- id: '1575923640582'
+  alias: IKEA Remote - Bedroom1 Blinds Open
+  description: Open blinds via IKEA remote
+  trigger:
+  - entity_id: sensor.bedroom1_remote_action
+    platform: state
+    to: brightness_up_click
+  condition: []
+  action:
+  - entity_id: cover.bedroom1
+    service: cover.open_cover
+  mode: single
+- id: '1575923789160'
+  alias: IKEA Remote - Bedroom1 Blinds Close
+  description: Close blinds via IKEA remote
+  trigger:
+  - entity_id: sensor.bedroom1_remote_action
+    platform: state
+    to: brightness_down_click
+  condition: []
+  action:
+  - data: {}
+    entity_id: cover.bedroom1
+    service: cover.close_cover
+  mode: single
+- id: '1578695353104'
+  alias: LIghts - Turn TVLights on 15 Mins before sunset
+  description: ''
+  trigger:
+  - event: sunset
+    offset: -00:15:00
+    platform: sun
+  condition: []
+  action:
+  - device_id: 9dd5af692d0e4a56ac1d1a350e763705
+    domain: switch
+    entity_id: switch.tvlightright
+    type: turn_on
+  - device_id: ae566cc3b5e543f9b5bfb9b062b42937
+    domain: switch
+    entity_id: switch.tvlightleft
+    type: turn_on
+  mode: single
+- id: ha_update_available
+  alias: Notification - Update Available
+  trigger:
+  - entity_id: binary_sensor.updater
+    from: 'off'
+    platform: state
+    to: 'on'
+  action: []
+  mode: single
+- id: '1586941044890'
+  alias: Heating - Change season to Winter
+  description: If below 18 degrees, Change to Winter Season
+  trigger:
+  - below: '18'
+    entity_id: sensor.tock_external_sensor_temperature
+    platform: numeric_state
+  condition: []
+  action:
+  - data:
+      option: Winter
+    entity_id: input_select.Heating_season
+    service: input_select.select_option
+  mode: single
+- id: '1586941045601'
+  alias: Heating - Change season to Summer
+  description: ''
+  trigger:
+  - above: '18.01'
+    entity_id: sensor.tock_external_sensor_temperature
+    platform: numeric_state
+  condition: []
+  action:
+  - data:
+      option: Summer
+    entity_id: input_select.Heating_season
+    service: input_select.select_option
+  mode: single
+- id: '1587239985270'
+  alias: LIghts - Turn TVLights off when no motion
+  description: ''
+  trigger:
+  - device_id: 04bf0eacd21e461d97657ae4c0d920d0
+    domain: binary_sensor
+    entity_id: binary_sensor.lounge_motion_occupancy
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+    platform: device
+    type: no_motion
+  condition: []
+  action:
+  - device_id: 2fbf446cb1894f22b5d46dd9037a3d9c
+    domain: switch
+    entity_id: switch.tvlightleft
+    type: turn_off
+  - device_id: 1094d5c5dbbd4e3d9f9561ade5e3cee8
+    domain: switch
+    entity_id: switch.tvlightright
+    type: turn_off
+  mode: single
+- id: '1587240186437'
+  alias: LIghts - Turn TVLights on when motion
+  description: ''
+  trigger:
+  - device_id: 04bf0eacd21e461d97657ae4c0d920d0
+    domain: binary_sensor
+    entity_id: binary_sensor.lounge_motion_occupancy
+    platform: device
+    type: motion
+  condition:
+  - after: sunset
+    before: sunrise
+    condition: sun
+  action:
+  - device_id: 2fbf446cb1894f22b5d46dd9037a3d9c
+    domain: switch
+    entity_id: switch.tvlightleft
+    type: turn_on
+  - device_id: 1094d5c5dbbd4e3d9f9561ade5e3cee8
+    domain: switch
+    entity_id: switch.tvlightright
+    type: turn_on
+  mode: single
+- id: '1587473272743'
+  alias: BathTime - Yes
+  description: ''
+  trigger:
+  - event_data:
+      actionName: YESIDOWANTABATH
+    event_type: ios.notification_action_fired
+    platform: event
+  condition:
+  - after: '19:00:00'
+    before: '16:00:00'
+    condition: time
+  action:
+  - data:
+      message: Yay! Someone stinks and is having a bath
+    service: notify.mandj
+  - data:
+      message: Yay! Someone stinks and is having a bath
+    service: notify.gdp
+  - data:
+      message: Yay! Someone stinks and is having a bath
+    service: notify.bsp
+  - data:
+      option: Scheduled
+    entity_id: input_select.waterheater_status
+    service: input_select.select_option
+  - service: switch.turn_on
+    entity_id: group.waterheaters
+  - delay: 02:00:00
+  - service: switch.turn_off
+    entity_id: group.waterheaters
+  - data:
+      option: Standby
+    entity_id: input_select.waterheater_status
+    service: input_select.select_option
+  - delay: 02:00:00
+  - data:
+      option: Scheduled
+    entity_id: input_select.waterheater_status
+    service: input_select.select_option
+  - service: switch.turn_on
+    entity_id: group.waterheaters
+  - delay: 02:00:00
+  - service: switch.turn_off
+    entity_id: group.waterheaters
+  - data:
+      option: Standby
+    entity_id: input_select.waterheater_status
+    service: input_select.select_option
+  mode: single
+- id: '1587474512128'
+  alias: BathTime - iOS Notification
+  description: ''
+  trigger:
+  - at: '10:00:00'
+    platform: time
+  condition: []
+  action:
+  - data:
+      data:
+        push:
+          badge: 0
+          category: doyouwantabath
+      message: Do you want a bath tonight?
+    service: notify.mandj
+  - data:
+      data:
+        push:
+          badge: 0
+          category: doyouwantabath
+      message: Do you want a bath tonight?
+    service: notify.gdp
+  - data:
+      data:
+        push:
+          badge: 0
+          category: doyouwantabath
+      message: Do you want a bath tonight?
+    service: notify.bsp
+  mode: single
+- id: '1587475086548'
+  alias: BathTime - No
+  description: ''
+  trigger:
+  - event_data:
+      actionName: NOIDONOTWANTABATH
+    event_type: ios.notification_action_fired
+    platform: event
+  condition: []
+  action: []
+  mode: single
+- id: 76525690-8643
+  alias: Blinds - Close front at low sun
+  trigger:
+  - above: '0'
+    entity_id: sun.sun
+    platform: numeric_state
+    value_template: '{{ state.attributes.elevation + ((state.attributes.azimuth -
+      230)/ 3)}}'
+  condition: []
+  action:
+  - entity_id:
+    - cover.bedroom2
+    - cover.lounge
+    - cover.bedroom1
+    service: cover.stop_cover
+  mode: single
+- id: '1587720225659'
+  alias: Zigbee - Network Offline
+  description: ''
+  trigger:
+  - entity_id: sensor.zigbee2mqtt_bridge_state
+    from: online
+    platform: state
+    to: offline
+  condition: []
+  action:
+  - data:
+      message: Zigbee Offline
+    service: notify.mjp
+  mode: single
+- id: '1587720479917'
+  alias: Zigbee - Network Online
+  description: ''
+  trigger:
+  - entity_id: sensor.zigbee2mqtt_bridge_state
+    from: offline
+    platform: state
+    to: online
+  condition: []
+  action:
+  - data:
+      message: Zigbee Online
+    service: notify.mjp
+  mode: single
+- id: '1588757753550'
+  alias: Excess Solar - Battery Charging Off
+  description: When excess solar below 2500w battery charging off
+  trigger:
+  - below: '2500'
+    entity_id: sensor.solax_excess_solar_power
+    for: 00:05:00
+    platform: numeric_state
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: group.battery_forcetime
+  - data:
+      message: Excess Solar - Battery Charging Off
+    service: notify.mjp
+  mode: single
+- id: '1589043084668'
+  alias: IKEA Remote - Bedroom1 Light
+  description: Turn on light via IKEA Remote
+  trigger:
+  - device_id: c373fd0a94134f9bb1a169398d115404
+    discovery_id: 0x000d6ffffe0e5c0d action_toggle
+    domain: mqtt
+    platform: device
+    subtype: toggle
+    type: action
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.bedroom1_light
+    service: light.toggle
+  mode: single
+- id: '1589136013947'
+  alias: IKEA Remote - Bedroom1 Fan Off
+  description: Turn off Bedroom1 Fan
+  trigger:
+  - device_id: 8687cfb7247144e9bf27d872adff148b
+    discovery_id: 0x000d6ffffe0e5c0d action_arrow_left_click
+    domain: mqtt
+    platform: device
+    subtype: arrow_left_click
+    type: action
+  condition: []
+  action:
+  - data:
+      speed: 'off'
+    entity_id: fan.bedroom1_fan
+    service: fan.set_speed
+  mode: single
+- id: '1589136109482'
+  alias: IKEA Remote - Bedroom1 Fan On
+  description: Turn On Bedroom1 Fan
+  trigger:
+  - device_id: 8687cfb7247144e9bf27d872adff148b
+    discovery_id: 0x000d6ffffe0e5c0d action_arrow_right_click
+    domain: mqtt
+    platform: device
+    subtype: arrow_right_click
+    type: action
+  condition: []
+  action:
+  - data:
+      speed: low
+    entity_id: fan.bedroom1_fan
+    service: fan.set_speed
+  mode: single
+- id: '1589468830414'
+  alias: Notification - Bin day
+  description: ''
+  trigger:
+  - at: '15:00:00'
+    platform: time
+  condition:
+  - condition: time
+    weekday:
+    - thu
+  action:
+  - data:
+      message: Bin collection tomorrow. Please put them out
+    service: notify.all_family
+  mode: single
+- id: '1589533562507'
+  alias: Lights - Bedroom Passage Evening
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: 3c8100d91cfa4f39a0f589017a016524
+    entity_id: binary_sensor.bedroom3_motion_occupancy
+    domain: binary_sensor
+  - type: motion
+    platform: device
+    device_id: 4d2884575ad84ff39d45035289e2e71a
+    entity_id: binary_sensor.bedroom1_motion_occupancy
+    domain: binary_sensor
+  condition:
+  - condition: and
+    conditions:
+    - after: sunset
+      condition: sun
+    - before: '22:00'
+      condition: time
+  action:
+  - data:
+      brightness: 255
+      color_temp: 153
+      entity_id: light.bedrooms1_light
+    service: light.turn_on
+  - data:
+      brightness: 255
+      color_temp: 153
+      entity_id: light.bedrooms2_light
+    service: light.turn_on
+  - delay: 00:05:00
+  - data:
+      entity_id: light.bedrooms1_light
+    service: light.turn_off
+  - data:
+      entity_id: light.bedrooms2_light
+    service: light.turn_off
+  mode: single
+- id: '1589545746099'
+  alias: Lights - Bedroom Passage Night
+  description: ''
+  trigger:
+  - device_id: cffeb2254a244993971a87496ef4f500
+    domain: binary_sensor
+    entity_id: binary_sensor.motion1_occupancy
+    platform: device
+    type: motion
+  - device_id: 32653eb755954b1686154cbae6c9d70f
+    domain: binary_sensor
+    entity_id: binary_sensor.motion3_occupancy
+    platform: device
+    type: motion
+  condition:
+  - condition: and
+    conditions:
+    - after: sunset
+      before: sunrise
+      condition: sun
+    - after: '22:00:00'
+      before: 07:00:00
+      condition: time
+  action:
+  - data:
+      brightness: 5
+      color_temp: 500
+      entity_id: light.bedrooms1_light
+    service: light.turn_on
+  - data:
+      brightness: 5
+      color_temp: 500
+      entity_id: light.bedrooms2_light
+    service: light.turn_on
+  - delay: 00:05:00
+  - data:
+      entity_id: light.bedrooms1_light
+    service: light.turn_off
+  - data:
+      entity_id: light.bedrooms2_light
+    service: light.turn_off
+  mode: single
+- id: '1589545746100'
+  alias: Lights - Bedroom Passage Morning
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: 4d2884575ad84ff39d45035289e2e71a
+    entity_id: binary_sensor.bedroom1_motion_occupancy
+    domain: binary_sensor
+  - type: motion
+    platform: device
+    device_id: 3c8100d91cfa4f39a0f589017a016524
+    entity_id: binary_sensor.bedroom3_motion_occupancy
+    domain: binary_sensor
+  condition:
+  - condition: and
+    conditions:
+    - before: sunrise
+      condition: sun
+    - after: 07:00:00
+      before: '21:00:00'
+      condition: time
+  action:
+  - data:
+      brightness: 5
+      color_temp: 500
+      entity_id: light.bedrooms1_light
+    service: light.turn_on
+  - data:
+      brightness: 5
+      color_temp: 500
+      entity_id: light.bedrooms2_light
+    service: light.turn_on
+  - delay: 00:05:00
+  - data:
+      entity_id: light.bedrooms1_light
+    service: light.turn_off
+  - data:
+      entity_id: light.bedrooms2_light
+    service: light.turn_off
+  mode: single
+- id: '1589920701722'
+  alias: Lights - Turn TVLights off @ 23:00
+  description: ''
+  trigger:
+  - at: '23:00:00'
+    platform: time
+  condition: []
+  action:
+  - device_id: aec7bdffff28417a9b2f387fa62089cd
+    domain: switch
+    entity_id: switch.tvlightleft
+    type: turn_off
+  - device_id: 87f405933e434d8b8a052217067575d8
+    domain: switch
+    entity_id: switch.tvlightright
+    type: turn_off
+  mode: single
+- id: '1590244997326'
+  alias: IKEA Remote - Bedroom4 Light On
+  description: ''
+  trigger:
+  - device_id: 55259f42c0904c4eb0a2b0a5bf8582b7
+    discovery_id: 0x680ae2fffead6e8c action_toggle
+    domain: mqtt
+    platform: device
+    subtype: toggle
+    type: action
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.bedroom4_light
+    service: light.toggle
+  mode: single
+- id: '1590245894350'
+  alias: IKEA Remote - Bedroom4 Light Brighness Up
+  description: ''
+  trigger:
+  - device_id: 55259f42c0904c4eb0a2b0a5bf8582b7
+    discovery_id: 0x680ae2fffead6e8c action_brightness_up_click
+    domain: mqtt
+    platform: device
+    subtype: brightness_up_click
+    type: action
+  condition: []
+  action:
+  - device_id: 0cbe97c37afc42cebb7661b17491f543
+    domain: light
+    entity_id: light.bedroom4_light
+    type: brightness_increase
+  mode: single
+- id: '1590246044155'
+  alias: IKEA Remote - Bedroom4 Light Brightness Down
+  description: ''
+  trigger:
+  - device_id: 55259f42c0904c4eb0a2b0a5bf8582b7
+    discovery_id: 0x680ae2fffead6e8c action_brightness_down_click
+    domain: mqtt
+    platform: device
+    subtype: brightness_down_click
+    type: action
+  condition: []
+  action:
+  - device_id: 0cbe97c37afc42cebb7661b17491f543
+    domain: light
+    entity_id: light.bedroom4_light
+    type: brightness_decrease
+  mode: single
+- id: '1590783022653'
+  alias: Fans - Scheduled Turn Off
+  description: ''
+  trigger:
+  - at: 09:00:00
+    platform: time
+  - at: '12:00:00'
+    platform: time
+  - at: '16:00:00'
+    platform: time
+  condition: []
+  action:
+  - data: {}
+    entity_id: fan.bedroom1_fan_fan
+    service: fan.turn_off
+  - data: {}
+    entity_id: fan.bedroom2_fan_fan
+    service: fan.turn_off
+  - data: {}
+    entity_id: fan.bedroom3_fan_fan
+    service: fan.turn_off
+  mode: single
+- id: '1591618849797'
+  alias: Dishwasher - Drying
+  description: ''
+  trigger:
+  - below: '10'
+    entity_id: sensor.dishwasher_plug_wattage
+    platform: numeric_state
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: input_select.dishwasher_status
+      state: Running
+  action:
+  - data:
+      option: Drying
+    entity_id: input_select.dishwasher_status
+    service: input_select.select_option
+  - data:
+      message: Diswasher Drying
+    service: notify.mjp
+  mode: single
+- id: '1591621556411'
+  alias: Dishwasher - Idle
+  description: ''
+  trigger:
+  - below: '1'
+    entity_id: sensor.dishwasher_plug_wattage
+    for: 00:30:00
+    platform: numeric_state
+  condition:
+  - condition: state
+    entity_id: input_select.dishwasher_status
+    state: Clean
+  action:
+  - data:
+      message: Dishwasher Idle
+    service: notify.mjp
+  - data:
+      option: Idle
+    service: input_select.dishwasher_status
+  mode: single
+- id: '1593003569179'
+  alias: Notification - Waterheater Top On
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: a57a55ba01d030e05982021f42ebb90f
+    entity_id: switch.waterheater_top_switch
+    domain: switch
+  condition: []
+  action:
+  - data:
+      message: WaterHeater Top On
+    service: notify.mjp
+  mode: single
+- id: '1601930927780'
+  alias: OctopusAgile - Dishwasher Slot
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.dishwasherslot
+    to: 'true'
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 39a5f00e964c4aeea76b20d4d6170986
+    entity_id: switch.dishwasher_switch
+    domain: switch
+  - service: notify.mandj
+    data:
+      message: Dishwasher Slot
+  mode: single
+- id: '1601931101432'
+  alias: OctopusGo - Washing Machine Slot
+  description: ''
+  trigger:
+  - platform: time
+    at: 00:30:00
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 6de6d5fb7c274df5ae07ceb66923e212
+    entity_id: switch.washing_machine_switch
+    domain: switch
+  mode: single
+- id: '1601931133949'
+  alias: OctopusAgile - Tumble Dryer Slot
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.tumbledryerslot
+    to: 'true'
+  condition: []
+  action:
+  - type: turn_on
+    device_id: f11988c0cd514e48a3404e11f3beaf67
+    entity_id: switch.tumbledryer_switch
+    domain: switch
+  - service: notify.mandj
+    data:
+      message: Tumbledryer Slot
+  mode: single
+- id: '1601972343987'
+  alias: Notification - Waterheater Top Off
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_off
+    device_id: a57a55ba01d030e05982021f42ebb90f
+    entity_id: switch.waterheater_top_switch
+    domain: switch
+  condition: []
+  action:
+  - data:
+      message: WaterHeater Top Off
+    service: notify.mjp
+  mode: single
+- id: '1601972596626'
+  alias: Notification - Waterheater Bottom On
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: 0428fd0d523f76cf0887b0cce3bc095b
+    entity_id: switch.waterheater_bottom_switch
+    domain: switch
+  condition: []
+  action:
+  - data:
+      message: WaterHeater Bottom On
+    service: notify.mjp
+  mode: single
+- id: '1601972653976'
+  alias: Notification - Waterheater Bottom Off
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_off
+    device_id: 0428fd0d523f76cf0887b0cce3bc095b
+    entity_id: switch.waterheater_bottom_switch
+    domain: switch
+  condition: []
+  action:
+  - data:
+      message: WaterHeater Bottom Off
+    service: notify.mjp
+  mode: single
+- id: '1602067082491'
+  alias: Notification - Best 2Hour Electricity slot
+  description: ''
+  trigger:
+  - platform: time
+    at: 09:00:00
+  - platform: time
+    at: '19:00:00'
+  condition: []
+  action:
+  - service: notify.mandj
+    data:
+      data:
+        subtitle: The best 2 hour slot
+      message: 'today is at:  {{now().fromisoformat((states("sensor.octoblock_2hour_time"))[:-7]).time()}}'
+      title: Electricity
+  - service: notify.mandd
+    data:
+      data:
+        subtitle: The best 2 hour slot
+      message: 'today is at: ''{{now().fromisoformat((states("sensor.octoblock_2hour_time"))[:-7]).time()}}'''
+      title: Electricity
+  mode: single
+- id: '1602067167803'
+  alias: Notification - Best 1Hour Electricity slot
+  description: ''
+  trigger:
+  - platform: time
+    at: 09:00:00
+  - platform: time
+    at: '19:00:00'
+  condition: []
+  action:
+  - service: notify.mandj
+    data:
+      data:
+        subtitle: The best 1 hour slot
+      message: 'today is at: ''{{now().fromisoformat((states("sensor.octoblock_1hour_time"))[:-7]).time()}}'''
+      title: Electricity
+  - service: notify.mandd
+    data:
+      data:
+        subtitle: The best 1 hour slot
+      message: 'today is at: ''{{now().fromisoformat((states("sensor.octoblock_1hour_time"))[:-7]).time()}}'''
+      title: Electricity
+  mode: single
+- id: '1602067213926'
+  alias: Notification - Best 3Hour Electricity slot
+  description: ''
+  trigger:
+  - platform: time
+    at: 09:00:00
+  - platform: time
+    at: '19:00:00'
+  condition: []
+  action:
+  - service: notify.mandj
+    data:
+      data:
+        subtitle: The best 3 hour slot
+      message: 'today is at:  {{now().fromisoformat((states("sensor.octoblock_3hour_time"))[:-7]).time()}}'
+      title: Electricity
+  - service: notify.mandd
+    data:
+      data:
+        subtitle: The best 3 hour slot
+      message: 'today is at: ''{{now().fromisoformat((states("sensor.octoblock_3hour_time"))[:-7]).time()}}'''
+      title: Electricity
+  mode: single
+- id: '1602240293916'
+  alias: Laundry Appliance - Dishwasher Toggle
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.dishwasher_button_action
+    to: single
+  condition: []
+  action:
+  - type: toggle
+    device_id: 39a5f00e964c4aeea76b20d4d6170986
+    entity_id: switch.dishwasher_switch
+    domain: switch
+  mode: single
+- id: '1602240347005'
+  alias: Laundry Appliance - Washing MachineToggle
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.washing_machine_button_action
+    to: single
+  condition: []
+  action:
+  - type: toggle
+    device_id: 6de6d5fb7c274df5ae07ceb66923e212
+    entity_id: switch.washing_machine_switch
+    domain: switch
+  mode: single
+- id: '1603659618587'
+  alias: Home Assistant Start
+  description: ''
+  trigger:
+  - platform: homeassistant
+    event: start
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 16597535b46c4d07adbe2dbc5ce8be76
+    entity_id: light.bedrooms1_light
+    domain: light
+  - type: turn_off
+    device_id: b7341233fa744ebfbcde136565e6527e
+    entity_id: light.bedrooms2_light
+    domain: light
+  - type: turn_off
+    device_id: 7e13bdb8532f4e8b91d2ad6f3e0aeb14
+    entity_id: light.bedroom4_light_light
+    domain: light
+  mode: single
+- id: '1603744371240'
+  alias: Battery powered device low battery
+  description: ''
+  trigger:
+  - type: battery_level
+    platform: device
+    device_id: 4d2884575ad84ff39d45035289e2e71a
+    entity_id: sensor.bedroom1_motion_battery
+    domain: sensor
+    below: 10
+  - type: battery_level
+    platform: device
+    device_id: d6685cb1618d4c3681752838cead665e
+    entity_id: sensor.lounge_motion_battery
+    domain: sensor
+    below: 10
+  - type: battery_level
+    platform: device
+    device_id: 3c8100d91cfa4f39a0f589017a016524
+    entity_id: sensor.bedroom3_motion_battery
+    domain: sensor
+    below: 10
+  - type: battery_level
+    platform: device
+    device_id: 8f0cfcaaae214674a2f22f05eb9ce5af
+    entity_id: sensor.office_motion_battery
+    domain: sensor
+    below: 10
+  - type: battery_level
+    platform: device
+    device_id: ae79f2178c8744faa379e2c5598c72cb
+    entity_id: sensor.office_sensor_battery
+    domain: sensor
+    below: 10
+  - type: battery_level
+    platform: device
+    device_id: a3971f31d38444b3806d2ec84c606d69
+    entity_id: sensor.lounge_sensor_battery
+    domain: sensor
+    below: 10
+  - type: battery_level
+    platform: device
+    device_id: c1fc94cd0a1411ebb8b22ddfa4548ca8
+    entity_id: sensor.entrance_sensor_battery
+    domain: sensor
+    below: 10
+  - type: battery_level
+    platform: device
+    device_id: 541b26170d7348b4a69156b15c1d311f
+    entity_id: sensor.diningroom_sensor_battery
+    domain: sensor
+    below: 10
+  - type: battery_level
+    platform: device
+    device_id: 01649ec40a1411eb8e22452312ab7a0d
+    entity_id: sensor.passage_sensor_battery
+    domain: sensor
+    below: 10
+  - type: battery_level
+    platform: device
+    device_id: 619539c4f65e4661aa305efcb9130576
+    entity_id: sensor.kitchen_sensor_battery
+    domain: sensor
+    below: 10
+  - type: battery_level
+    platform: device
+    device_id: 5b6c654d0a1811eba2267117579ada81
+    entity_id: sensor.dishwasher_button_battery
+    domain: sensor
+    below: 10
+  - type: battery_level
+    platform: device
+    device_id: 023d16510a1911eb8dd7bf402fff5ebe
+    entity_id: sensor.washing_machine_button_battery
+    domain: sensor
+    below: 10
+  - type: battery_level
+    platform: device
+    device_id: 08c92bfacb494190b78ad8cadfc3acac
+    entity_id: sensor.front_door_battery
+    domain: sensor
+    below: 10
+  - type: battery_level
+    platform: device
+    device_id: 9f0ebed74f3e42908d3bd3ca977f60dd
+    entity_id: sensor.back_door_battery
+    domain: sensor
+    below: 10
+  - type: battery_level
+    platform: device
+    device_id: 3105df6784d24ad18574e590102da193
+    entity_id: sensor.sliding_door_battery
+    domain: sensor
+    below: 10
+  - type: battery_level
+    platform: device
+    device_id: 0e3739a60a1511eb8e2c673520be6432
+    entity_id: sensor.guest_bathroom_sensor_battery
+    domain: sensor
+    below: 10
+  - type: battery_level
+    platform: device
+    device_id: a687a49f0a1511eb8198cff9e84940eb
+    entity_id: sensor.master_bathroom_sensor_battery
+    domain: sensor
+    below: 10
+  - type: battery_level
+    platform: device
+    device_id: e63d4d0e1ed34cd7a8fc8ec041398a9b
+    entity_id: sensor.bedroom1_remote_battery
+    domain: sensor
+    below: 10
+  - type: battery_level
+    platform: device
+    device_id: 3c3b83ad48e44886915ff8471079affb
+    entity_id: sensor.bedroom1_sensor_battery
+    domain: sensor
+    below: 10
+  - type: humidity
+    platform: device
+    device_id: 9525cd1d23764d0f95136c25519ad2c5
+    entity_id: sensor.bedroom2_sensor_humidity
+    domain: sensor
+    below: 10
+  - type: battery_level
+    platform: device
+    device_id: 9525cd1d23764d0f95136c25519ad2c5
+    entity_id: sensor.bedroom2_sensor_battery
+    domain: sensor
+    below: 10
+  - type: battery_level
+    platform: device
+    device_id: 12b2c0c61f1642c6a80771ea3e8646cc
+    entity_id: sensor.bedroom3_remote_battery
+    domain: sensor
+    below: 10
+  - type: battery_level
+    platform: device
+    device_id: ba7f40c3cc894ae7a60b38818507421e
+    entity_id: sensor.bedroom3_sensor_battery
+    domain: sensor
+    below: 10
+  - type: battery_level
+    platform: device
+    device_id: eec4aa4b0a1511eba6117b71db44b428
+    entity_id: sensor.bedroom4_sensor_battery
+    domain: sensor
+    below: 10
+  - type: battery_level
+    platform: device
+    device_id: eec4aa4b0a1511eba6117b71db44b428
+    entity_id: sensor.bedroom4_sensor_battery
+    domain: sensor
+    below: 10
+  condition: []
+  action:
+  - service: notify.mjp
+    data:
+      message: Battry powered device dropped below 10% battery
+  mode: single
+- id: '1604397136469'
+  alias: Dehumidifiers - On
+  description: ''
+  trigger:
+  - platform: time
+    at: 08:00:00
+  condition: []
+  action:
+  - service: switch.turn_on
+    data: {}
+    entity_id: group.dehumidifiers
+  mode: single
+- id: '1604397177292'
+  alias: Dehumidifiers - Off
+  description: ''
+  trigger:
+  - platform: time
+    at: '22:00:00'
+  condition: []
+  action:
+  - service: switch.turn_off
+    data: {}
+    entity_id: group.dehumidifiers
+  mode: single
+- id: '16057812342193'
+  alias: BSP Status to Home
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: device_tracker.life360_berrit
+    to: home
+  condition: []
+  action:
+  - service: input_select.select_option
+    data:
+      option: Home
+    entity_id: input_select.bsp_status
+  mode: single
+- id: '16456783954660'
+  alias: BSP Status to Away
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: device_tracker.life360_berrit
+    to: not_home
+  condition: []
+  action:
+  - service: input_select.select_option
+    data:
+      option: Away
+    entity_id: input_select.bsp_status
+  mode: single
+- id: '1607355149091'
+  alias: Power Saving - On
+  description: ''
+  trigger:
+  - platform: state
+    to: 'on'
+    entity_id: input_boolean.power_saving
+  condition: []
+  action:
+  - service: climate.turn_off
+    data: {}
+    entity_id: group.heaters_all
+  - service: switch.turn_off
+    entity_id: group.waterheaters
+    data: {}
+  - service: notify.all_family
+    data:
+      message: Power Saving On
+  mode: single
+- id: '160731234091'
+  alias: Power Saving - Off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.power_saving
+    to: 'off'
+  condition: []
+  action:
+  - service: climate.turn_on
+    data: {}
+    entity_id: group.all_heaters
+  - service: notify.all_family
+    data:
+      message: Power Saving Off
+  mode: single
+- id: '1608238223680'
+  alias: XMAS Indoor LIghts - On
+  description: ''
+  trigger:
+  - platform: time
+    at: '10:00:00'
+  condition: []
+  action:
+  - service: switch.turn_on
+    data: {}
+    entity_id: group.xmasindoorlights
+  mode: single
+- id: '1608238260418'
+  alias: XMAS Indoor LIghts - Off
+  description: ''
+  trigger:
+  - platform: time
+    at: '23:00:00'
+  condition: []
+  action:
+  - service: switch.turn_off
+    data: {}
+    entity_id: group.xmasindoorlights
+  mode: single
+- id: '1608238416934'
+  alias: XMAS Outdoor LIghts - Off
+  description: ''
+  trigger:
+  - platform: time
+    at: '23:00:00'
+  condition: []
+  action:
+  - service: switch.turn_off
+    data: {}
+    entity_id: group.xmasoutdoorlights
+  mode: single
+- id: '1608238586267'
+  alias: XMAS Outdoor LIghts - On
+  description: ''
+  trigger:
+  - platform: time
+    at: '16:00:00'
+  condition: []
+  action:
+  - service: switch.turn_on
+    data: {}
+    entity_id: group.xmasoutdoorlights
+  mode: single
+- id: '1608846997375'
+  alias: Bedroom1 Dehumidifier - Full
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.bedroom1_dehumidifier_wattage
+    below: '20'
+    for: 01:00:00
+  condition:
+  - condition: or
+    conditions:
+    - condition: time
+      after: 08:00:00
+      before: '16:00:00'
+    - condition: time
+      after: '19:00:00'
+      before: '22:00:00'
+  action:
+  - service: input_select.select_option
+    data:
+      option: Empty Me
+    entity_id: input_select.bedroom1dehumidifier
+  - service: notify.all_family
+    data:
+      message: Bedroom1 Dehumidifier needs emptying
+  mode: single
+- id: '1608841237375'
+  alias: Bedroom1 Dehumidifier - Empty
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.bedroom1_dehumidifier_wattage
+    above: '30'
+  condition:
+  - condition: time
+    after: '22:00:00'
+    before: 08:00:00
+  action:
+  - service: input_select.select_option
+    data:
+      option: Filling Up
+    entity_id: input_select.bedroom1dehumidifier
+  mode: single
+- id: '1608848990974'
+  alias: Office Dehumidifier - Full
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.office_dehumidifier_wattage
+    below: '20'
+    for: 01:00:00
+  condition:
+  - condition: or
+    conditions:
+    - condition: time
+      after: 08:00:00
+      before: '16:00:00'
+    - condition: time
+      after: '19:00:00'
+      before: '22:00:00'
+  action:
+  - service: input_select.select_option
+    data:
+      option: Empty Me
+    entity_id: input_select.officedehumidifier
+  - service: notify.all_family
+    data:
+      message: Office Dehumidifier needs emptying
+  mode: single
+- id: '1608849054924'
+  alias: Office Dehumidifier - Empty
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.office_dehumidifier_wattage
+    above: '100'
+  condition: []
+  action:
+  - service: input_select.select_option
+    data:
+      option: Filling Up
+    entity_id: input_select.officedehumidifier
+  mode: single
+- id: '16088483689974'
+  alias: Lounge Dehumidifier - Full
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.lounge_dehumidifier_wattage
+    below: '20'
+    for: 01:00:00
+  condition:
+  - condition: or
+    conditions:
+    - condition: time
+      after: 08:00:00
+      before: '16:00:00'
+    - condition: time
+      after: '19:00:00'
+      before: '22:00:00'
+  action:
+  - service: input_select.select_option
+    data:
+      option: Empty Me
+    entity_id: input_select.loungedehumidifier
+  - service: notify.all_family
+    data:
+      message: Lounge Dehumidifier needs emptying
+  mode: single
+- id: '16012569054924'
+  alias: Lounge Dehumidifier - Empty
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.lounge_dehumidifier_wattage
+    above: '100'
+  condition: []
+  action:
+  - service: input_select.select_option
+    data:
+      option: Filling Up
+    entity_id: input_select.loungedehumidifier
+  mode: single
+- id: '1610477155539'
+  alias: OctopusTariff - Agile On
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_select.octopus_tariff
+    to: Agile
+  condition: []
+  action:
+  - service: automation.turn_on
+    data: {}
+    entity_id:
+    - automation.octopusagile_rate_plunge
+    - automation.octopusagile_rate_low
+    - automation.octopusagile_rate_medium
+    - automation.octopusagile_rate_high
+    - automation.octopusagile_rate_peak
+    - automation.octopusagile_solax_battery_charging_off
+    - automation.octopusagile_solax_battery_charging_on
+    - automation.octopusagile_solax_battery_plunge
+    - automation.octopusagile_solax_battery_low
+    - automation.octopusagile_solax_battery_medium
+    - automation.octopusagile_solax_battery_high
+    - automation.octopusagile_solax_battery_peak
+    - automation.octopusagile_peak_start
+    - automation.octopusagile_peak_end
+    - automation.octopusagile_moneymakers_off
+    - automation.octopusagile_moneymakers_on
+    - automation.octopusagile_dishwasher_slot
+    - automation.octopusagile_washing_machine_slot
+    - automation.octopusagile_tumble_dryer_slot
+    - automation.octopusagile_waterheaters_nightrun_on
+    - automation.octopusagile_waterheaters_nightrun_off
+  mode: single
+- id: '1610477432267'
+  alias: OctopusTariff - Agile Off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_select.octopus_tariff
+    to: GO
+  condition: []
+  action:
+  - service: automation.turn_off
+    data: {}
+    entity_id:
+    - automation.octopusagile_rate_plunge
+    - automation.octopusagile_rate_low
+    - automation.octopusagile_rate_medium
+    - automation.octopusagile_rate_high
+    - automation.octopusagile_rate_peak
+    - automation.octopusagile_solax_battery_charging_off
+    - automation.octopusagile_solax_battery_charging_on
+    - automation.octopusagile_solax_battery_plunge
+    - automation.octopusagile_solax_battery_low
+    - automation.octopusagile_solax_battery_medium
+    - automation.octopusagile_solax_battery_high
+    - automation.octopusagile_solax_battery_peak
+    - automation.octopusagile_peak_start
+    - automation.octopusagile_peak_end
+    - automation.octopusagile_moneymakers_off
+    - automation.octopusagile_moneymakers_on
+    - automation.octopusagile_dishwasher_slot
+    - automation.octopusagile_washing_machine_slot
+    - automation.octopusagile_tumble_dryer_slot
+    - automation.octopusagile_waterheaters_nightrun_on
+    - automation.octopusagile_waterheaters_nightrun_off
+  mode: single
+- id: '1610477669903'
+  alias: OctopusTariff - Go Off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_select.octopus_tariff
+    to: Agile
+  condition: []
+  action:
+  - service: automation.turn_off
+    data: {}
+    entity_id:
+    - automation.octopusgo_cheap_slot_end
+    - automation.octopusgo_cheap_slot_start
+    - automation.octopusgo_dishwasher_slot
+    - automation.octopusgo_washing_machine_slot
+    - automation.octopusgo_tumble_dryer_slot
+    - automation.octopusgo_waterheaters_nightrun_on
+    - automation.octopusgo_waterheaters_nightrun_off
+  mode: single
+- id: '1610477711189'
+  alias: OctopusTariff - Go On
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_select.octopus_tariff
+    to: GO
+  condition: []
+  action:
+  - service: automation.turn_on
+    data: {}
+    entity_id:
+    - automation.octopusgo_cheap_slot_end
+    - automation.octopusgo_cheap_slot_start
+    - automation.octopusgo_dishwasher_slot
+    - automation.octopusgo_washing_machine_slot
+    - automation.octopusgo_tumble_dryer_slot
+    - automation.octopusgo_waterheaters_nightrun_on
+    - automation.octopusgo_waterheaters_nightrun_off
+  mode: single
+- id: '1610483242726'
+  alias: OctopusGo - Dishwasher Slot
+  description: ''
+  trigger:
+  - platform: time
+    at: 02:00:00
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 39a5f00e964c4aeea76b20d4d6170986
+    entity_id: switch.dishwasher_switch
+    domain: switch
+  mode: single
+- id: '1610483444907'
+  alias: OctopusAgile - Washing Machine Slot
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.washingmachineslot
+    to: 'true'
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 6de6d5fb7c274df5ae07ceb66923e212
+    entity_id: switch.washing_machine_switch
+    domain: switch
+  mode: single
+- id: '1610484049372'
+  alias: OctopusGo - Tumble Dryer Slot
+  description: ''
+  trigger:
+  - platform: time
+    at: 00:30:00
+  condition: []
+  action:
+  - type: turn_on
+    device_id: f11988c0cd514e48a3404e11f3beaf67
+    entity_id: switch.tumbledryer_switch
+    domain: switch
+  mode: single
+- id: '1610546220377'
+  alias: OctopusAgile - WaterHeaters NightRun On
+  description: ''
+  trigger:
+  - at: 01:00:00
+    platform: time
+  condition: []
+  action:
+  - service: switch.turn_on
+    data: {}
+    entity_id: group.waterheaters
+  mode: single
+- id: '1610546254900'
+  alias: OctopusAgile - WaterHeaters NightRun Off
+  description: ''
+  trigger:
+  - at: 04:30:00
+    platform: time
+  condition: []
+  action:
+  - service: switch.turn_off
+    data: {}
+    entity_id: group.waterheaters
+  mode: single
+- id: '1610546288793'
+  alias: OctopusGo - WaterHeaters NightRun Off
+  description: ''
+  trigger:
+  - at: 04:30:00
+    platform: time
+  condition: []
+  action:
+  - service: switch.turn_off
+    data: {}
+    entity_id: group.waterheaters
+  mode: single
+- id: '1610546841027'
+  alias: Excess Solar - Battery Charging On
+  description: When excess solar above 2500w battery charging on
+  trigger:
+  - above: '2500'
+    entity_id: sensor.electricity_excess_solar
+    for: 00:05:00
+    platform: numeric_state
+  condition: []
+  action:
+  - service: input_boolean.turn_on
+    data: {}
+    entity_id: group.battery_forcetime
+  - data:
+      message: Excess Solar - Battery Charging On
+    service: notify.mjp
+  mode: single
+- id: '1610553751174'
+  alias: SolaX - Battery Disbaled when Heating On
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: group.heater_status
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: group.battery_forcetime
+    state: 'off'
+  action:
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.battery_backup
+  mode: single
+- id: '1610553801470'
+  alias: Solax - Battery Enabled when Heating Off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: group.heater_status
+    to: 'off'
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.battery_backup
+  mode: single
+- id: '1611062029095'
+  alias: Heater Status - On
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: group.heater_status
+    to: 'on'
+  condition: []
+  action:
+  - service: notify.mjp
+    data:
+      message: A heater has turned on
+  mode: single
+- id: '1611062048925'
+  alias: Heater Status - Off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: group.heater_status
+    to: 'off'
+  condition: []
+  action:
+  - service: notify.mjp
+    data:
+      message: A heater has turned off
+  mode: single
+- id: '1612094262896'
+  alias: Motion - On - Kitchen Lights
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: 8f0cfcaaae214674a2f22f05eb9ce5af
+    entity_id: binary_sensor.kitchen_motion_occupancy
+    domain: binary_sensor
+  condition:
+  - type: is_motion
+    condition: device
+    device_id: 8f0cfcaaae214674a2f22f05eb9ce5af
+    entity_id: binary_sensor.kitchen_motion_occupancy
+    domain: binary_sensor
+  action:
+  - type: turn_on
+    device_id: a79c3e53927a2fbb1bfef0b039b80b2b
+    entity_id: switch.kitchen_cabinets_button
+    domain: switch
+  mode: single
+- id: '1612097587106'
+  alias: Motion - Off - Kitchen Lights
+  description: ''
+  trigger:
+  - type: no_motion
+    platform: device
+    device_id: 8f0cfcaaae214674a2f22f05eb9ce5af
+    entity_id: binary_sensor.kitchen_motion_occupancy
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  condition: []
+  action:
+  - type: turn_off
+    device_id: a79c3e53927a2fbb1bfef0b039b80b2b
+    entity_id: switch.kitchen_cabinets_button
+    domain: switch
+  mode: single
+- id: '1612378173776'
+  alias: MJP Status to Home
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: device_tracker.life360_matthew
+    to: home
+  condition: []
+  action:
+  - service: input_select.select_option
+    data:
+      option: Home
+    entity_id: input_select.mjp_status
+  mode: single
+- id: '1612378224322'
+  alias: MJP Status to Away
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: device_tracker.life360_matthew
+    to: not_home
+  condition: []
+  action:
+  - service: input_select.select_option
+    data:
+      option: Away
+    entity_id: input_select.mjp_status
+  mode: single
+- id: '1612396303776'
+  alias: JMP Status to Home
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: device_tracker.life360_jenny_porter
+    to: home
+  condition: []
+  action:
+  - service: input_select.select_option
+    data:
+      option: Home
+    entity_id: input_select.jmp_status
+  mode: single
+- id: '161237819356'
+  alias: JMP Status to Away
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: device_tracker.life360_jenny_porter
+    to: not_home
+  condition: []
+  action:
+  - service: input_select.select_option
+    data:
+      option: Away
+    entity_id: input_select.jmp_status
+  mode: single
+- id: '1840596303776'
+  alias: MandJ Status to Home
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: group.mandjlocation
+    to: home
+  condition: []
+  action:
+  - service: input_select.select_option
+    data:
+      option: Home
+    entity_id: input_select.mandj_status
+  mode: single
+- id: '160264719356'
+  alias: MandJ Status to Away
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: group.mandjlocation
+    to: not_home
+  condition: []
+  action:
+  - service: input_select.select_option
+    data:
+      option: Away
+    entity_id: input_select.mandj_status
+  mode: single
+- id: '1612865824965'
+  alias: Heating - Morning re-evaluation On
+  description: ''
+  trigger:
+  - platform: time
+    at: 07:00:00
+  condition: []
+  action:
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.heating_active_minutes
+    data: {}
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.heating_active_upstairs
+    data: {}
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.heating_active_downstairs
+    data: {}
+  mode: single
+- id: '1612865893532'
+  alias: Heating - Morning re-evaluation Off
+  description: ''
+  trigger:
+  - platform: time
+    at: 08:50:00
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.heating_active_minutes
+    data: {}
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.heating_active_upstairs
+    data: {}
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.heating_active_downstairs
+    data: {}
+  mode: single
+- id: '1613259661992'
+  alias: Heating - re-evaluation upstairs Off
+  description: ''
+  trigger:
+  - platform: time_pattern
+    hours: '*'
+    seconds: '00'
+    minutes: '00'
+  - platform: time_pattern
+    hours: '*'
+    minutes: '30'
+    seconds: '00'
+  condition:
+  - condition: time
+    after: 09:00:00
+    before: 07:00:00
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.heating_active_upstairs
+    data: {}
+  mode: single
+- id: '1613259729235'
+  alias: Heating - re-evaluation upstairs On
+  description: ''
+  trigger:
+  - platform: time_pattern
+    hours: '*'
+    seconds: '00'
+    minutes: '10'
+  - platform: time_pattern
+    hours: '*'
+    minutes: '40'
+    seconds: '00'
+  condition:
+  - condition: time
+    after: 09:00:00
+    before: 07:00:00
+  action:
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.heating_active_upstairs
+  mode: single
+- id: '1613284770192'
+  alias: Power - Amps Above 90
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.electricity_current_tock
+    above: '90'
+  condition: []
+  action:
+  - service: switch.turn_off
+    data: {}
+    entity_id: group.heaters_downstairs
+  - service: switch.turn_off
+    data: {}
+    entity_id: group.waterheaters
+  - delay:
+      hours: 1
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - service: switch.turn_on
+    data: {}
+    entity_id: group.heaters_downstairs
+  mode: single
+- id: '1613292379256'
+  alias: Heating - re-evaluation downstairs Off
+  description: ''
+  trigger:
+  - platform: time_pattern
+    hours: '*'
+    seconds: '00'
+    minutes: '20'
+  - platform: time_pattern
+    hours: '*'
+    minutes: '50'
+    seconds: '00'
+  condition:
+  - condition: time
+    after: 09:00:00
+    before: 07:00:00
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.heating_active_downstairs
+    data: {}
+  mode: single
+- id: '1613292412574'
+  alias: Heating - re-evaluation downstairs On
+  description: ''
+  trigger:
+  - platform: time_pattern
+    hours: '*'
+    seconds: '00'
+    minutes: '00'
+  - platform: time_pattern
+    hours: '*'
+    minutes: '30'
+    seconds: '00'
+  condition:
+  - condition: time
+    after: 09:00:00
+    before: 07:00:00
+  action:
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.heating_active_downstairs
+  mode: single
+- id: '1614373062550'
+  alias: Heating - Turn off Bedtime
+  description: ''
+  trigger:
+  - platform: time
+    at: '22:00:00'
+  - platform: time
+    at: '23:00:00'
+  - platform: time
+    at: 00:00:00
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.heating_bedtime
+  mode: single
+- id: '1616091166942'
+  alias: SolaX - Battery1 - Minimum DOD reached
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.x1slave_battery_capacity_charge
+    from: '21'
+    to: '20'
+  condition: []
+  action:
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.x1slave_backup
+  mode: single
+- id: '1616091261529'
+  alias: SolaX - Battery2 - Minimum DOD reached
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.x1master_battery_capacity_charge
+    from: '21'
+    to: '20'
+  condition: []
+  action:
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.x1master_backup
+  mode: single

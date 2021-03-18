@@ -1,0 +1,133 @@
+# Darkskies
+- platform: darksky
+  api_key: !secret darksky_key
+  forecast:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+  scan_interval:
+    days: 0
+    hours: 0
+    minutes: 5
+    seconds: 0
+    milliseconds: 0
+  monitored_conditions:
+    - summary
+    - icon
+    - nearest_storm_distance
+    - precip_type
+    - precip_intensity
+    - precip_probability
+    - precip_accumulation
+    - temperature
+    - apparent_temperature
+    - dew_point
+    - wind_speed
+    - wind_gust
+    - wind_bearing
+    - cloud_cover
+    - humidity
+    - pressure
+    - visibility
+    - ozone
+    - minutely_summary
+    - hourly_summary
+    - daily_summary
+    - temperature_high
+    - temperature_low
+    - apparent_temperature_high
+    - apparent_temperature_low
+    - precip_intensity_max
+    - uv_index
+    - moon_phase
+    - sunrise_time
+    - sunset_time
+    - nearest_storm_distance
+    - nearest_storm_bearing
+    - alerts
+
+# RFLink 433
+- platform: rflink
+  automatic_add: false
+  devices:
+    auriolv3_de01_temp:
+      name: Front Loft Temp
+      sensor_type: temperature
+    auriolv3_de01_hum:
+      name: Front Loft Humidity
+      sensor_type: humidity
+    auriolv3_6b03_temp:
+      name: Back Loft Temp
+      sensor_type: temperature
+    auriolv3_6b03_hum:
+      name: Back Loft Humidity
+      sensor_type: humidity
+
+# Date & Time sensors
+- platform: time_date
+  display_options:
+    - 'time'
+    - 'date'
+    - 'date_time'
+    - 'date_time_utc'
+    - 'date_time_iso'
+    - 'time_date'
+    - 'time_utc'
+
+# Waze Travel Time
+- platform: waze_travel_time
+  name: Matthew to Home
+  origin: device_tracker.life360_matthew
+  destination: zone.tock
+  region: 'EU'
+- platform: waze_travel_time
+  name: Jenny to Home
+  origin: device_tracker.life360_jenny_porter
+  destination: zone.tock
+  region: 'EU'
+#- platform: waze_travel_time
+#  name: Garth to Home
+#  origin: device_tracker.life360_garth
+#  destination: zone.tock
+#  region: 'EU'
+- platform: waze_travel_time
+  name: Berrit to Home
+  origin: device_tracker.life360_berrit
+  destination: zone.tock
+  region: 'EU'
+#- platform: waze_travel_time
+#  name: Kyle to Home
+#  origin: device_tracker.life360_kyle
+#  destination: zone.tock
+#  region: 'EU'
+#- platform: waze_travel_time
+#  name: Anna to Home
+#  origin: device_tracker.life360_anna
+#  destination: zone.tock
+#  region: 'EU'
+#- platform: waze_travel_time
+#  name: Erika to Home
+#  origin: device_tracker.life360_erika
+#  destination: zone.tock
+#  region: 'EU'
+
+# zigbee2mqtt
+- platform: mqtt
+  name: Zigbee2mqtt Bridge state # Sensor for monitoring the bridge state
+  state_topic: "Zigbee2mqtt/bridge/state"
+  icon: mdi:router-wireless
+- platform: mqtt
+  name: Zigbee2mqtt Version # Sensor for Showing the Zigbee2mqtt Version
+  state_topic: "Zigbee2mqtt/bridge/config"
+  value_template: "{{ value_json.version }}"
+  icon: mdi:zigbee
+- platform: mqtt
+  name: Zigbee Coordinator Version # Sensor for Showing the Coordinator Version
+  state_topic: "Zigbee2mqtt/bridge/config"
+  value_template: "{{ value_json.coordinator }}"
+  icon: mdi:chip

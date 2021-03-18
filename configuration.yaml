@@ -1,0 +1,75 @@
+#############
+# Play Area #
+#############
+alarm_control_panel: !include alarm_control_panel.yaml
+
+#############
+# Live Area #
+#############
+alexa:
+api:
+auth:
+breaking_changes:
+config:
+#default_config:
+discovery:
+history:
+ios: !include ios.yaml
+logbook:
+logger: !include logger.yaml
+mobile_app:
+map:
+sun:
+system_health:
+
+# Split Configration Files
+anniversaries: !include anniversaries.yaml
+automation: !include automations.yaml
+automation old: !include_dir_merge_list automations
+binary_sensor: !include binary_sensor.yaml
+camera: !include camera.yaml
+cloud: !include cloud.yaml
+cover: !include cover.yaml
+climate: !include climate.yaml
+device_tracker: !include device_tracker.yaml
+fan:
+ffmpeg: !include ffmpeg.yaml
+#fitbit:
+#fit_bit:
+frontend: !include frontend.yaml
+group: !include groups.yaml
+#grafana: !include grafana.yaml
+homeassistant: !include homeassistant.yaml
+http: !include http.yaml
+influxdb: !include influxdb.yaml
+input_boolean: !include input_boolean.yaml
+input_number: !include input_number.yaml
+input_select: !include input_select.yaml
+konnected: !include konnected.yaml
+life360: !include life360.yaml
+light: !include light.yaml
+lightwave: !include lightwaverf.yaml
+media_player: !include media_player.yaml
+modbus:
+notify: !include notifications.yaml
+panel_iframe: !include panel_iframe.yaml
+#panel_custom: !include panel_custom.yaml #Removed 15/07/2020
+rflink: !include rflink433.yaml
+remote: !include remote.yaml
+recorder:
+  purge_keep_days: 2
+scene: !include scene.yaml
+script: !include scripts.yaml
+sensor: !include sensor.yaml
+solcast: !include solcast.yaml
+#speedtestdotnet: !include speedtestdotnet.yaml # replaced by integration on 05/11/2020
+stream:
+switch: !include switch.yaml
+timer: !include timer.yaml
+tts: !include tts.yaml
+updater: !include updater.yaml
+wake_on_lan: #components in switch.yaml
+webhook:
+weather: !include weather.yaml
+#wemo: !include wemo.yaml # disabled for UI 8/5/2020
+zone: !include zone.yaml

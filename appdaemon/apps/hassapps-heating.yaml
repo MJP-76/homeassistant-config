@@ -1,0 +1,336 @@
+tock_heating:  # This is our app instance name.
+  module: hass_apps_loader
+  class: SchedyApp
+  actor_type: thermostat
+  expression_environment: |
+    def heating_mode():
+        return state("input_select.heating_mode")
+    def heating_season():
+        return state("input_select.heating_season")
+    def front_door():
+        return state("binary_sensor.frontdoor_contact")
+    def back_door():
+        return state("binary_sensor.backdoor_contact")
+    def sliding_door():
+        return state("binary_sensor.slidingdoor_contact")
+    def octopus_price():
+        return state("input_select.octopus_price")
+    def octopus_tariff():
+        return state("input_select.octopus_tariff")
+    def power_saving():
+        return state("input_boolean.power_saving")
+    def heating_bedtime():
+        return state("input_boolean.heating_bedtime")
+    def heating_mjptraining():
+        return state("input_boolean.heating_mjptraining")
+    def heating_hobbying():
+        return state("input_boolean.heating_hobbying")
+    def heating_weekendworking():
+        return state("input_boolean.heating_weekendworking")
+    def bsp_location():
+        return state("input_select.bsp_status")
+    def mjp_location():
+        return state("input_select.mjp_status")
+    def jmp_location():
+        return state("input_select.jmp_status")
+    def mandj_location():
+        return state("input_select.mandj_status")
+    def heating_active_upstairs():
+        return state("input_boolean.heating_active_upstairs")
+    def heating_active_downstairs():
+        return state("input_boolean.heating_active_downstairs")
+
+  watched_entities:
+  - input_select.heating_mode
+  - input_select.heating_season
+  - input_boolean.heating_active_upstairs
+  - input_boolean.heating_active_downstairs
+  - input_boolean.heating_bedtime
+  - input_boolean.heating_mjptraining
+  - input_boolean.heating_hobbying
+  - input_boolean.heating_weekendworking
+  - input_select.octopus_price
+  - input_select.octopus_tariff
+  - input_boolean.power_saving
+  - binary_sensor.frontdoor_contact
+  - binary_sensor.backdoor_contact
+  - binary_sensor.slidingdoor_contact
+  - input_select.mjp_status
+  - input_select.jmp_status
+  - input_select.bsp_status
+  - input_select.mandj_status
+
+  schedule_snippets:
+    default:
+    - { v: 17, start: "00:00", end: "00:00" }
+    holiday:
+    - { v: 17, start: "00:00", end: "00:00" }
+    octopusagile:
+    - { v: 17, start: "16:00", end: "19:00" }
+    home:
+    - { v: 17, start: "00:00", end: "08:00" }
+    - { v: 18, start: "08:00", end: "20:00" }
+    - { v: 17, start: "20:00", end: "00:00" }
+    officehours:
+    - { v: 17, start: "00:00", end: "07:00" }
+    - { v: 21, start: "07:00", end: "17:00" }
+    - { v: 17, start: "17:00", end: "00:00" }
+    weekendworking:
+    - { v: 17, start: "00:00", end: "07:00" }
+    - { v: 21, start: "07:00", end: "17:00" }
+    - { v: 17, start: "17:00", end: "00:00" }
+    hobbying:
+    - { v: 17, start: "00:00", end: "07:00" }
+    - { v: 21, start: "07:00", end: "17:00" }
+    - { v: 17, start: "17:00", end: "00:00" }
+    mjptraining:
+    - { v: 17, start: "00:00", end: "07:00" }
+    - { v: 21, start: "07:00", end: "17:00" }
+    - { v: 17, start: "17:00", end: "00:00" }
+    loungeweekday:
+    - { v: 17, start: "00:00", end: "07:00" }
+#    - { v: 18, start: "07:00", end: "16:00" } #OctopusGo
+#    - { v: 21, start: "16:00", end: "22:00" } #OctopusGo
+    - { v: 18, start: "07:00", end: "14:00" } #OctopusAgile
+    - { v: 21, start: "14:00", end: "22:00" } #OctopusAgile
+    - { v: 17, start: "22:00", end: "00:00" }
+    loungeweekend:
+    - { v: 17, start: "00:00", end: "09:00" }
+    - { v: 21, start: "09:00", end: "21:00" }
+    - { v: 17, start: "21:00", end: "00:00" }
+    loungeweekendworking:
+    - { v: 17, start: "00:00", end: "07:00" }
+    - { v: 19, start: "07:00", end: "17:00" }
+    - { v: 17, start: "17:00", end: "00:00" }
+    loungemjpaway:
+    - { v: 17, start: "00:00", end: "16:00" }
+    - { v: 21, start: "16:00", end: "19:00" }
+    - { v: 17, start: "19:00", end: "00:00" }
+    bedrooms:
+    - { v: 17, start: "00:00", end: "20:00" }
+    - { v: 20, start: "20:00", end: "22:00" }
+    - { v: 17, start: "22:00", end: "00:00" }
+    bedroom1:
+    - { v: 18, start: "00:00", end: "07:00" }
+    - { v: 17, start: "07:00", end: "20:00" }
+    - { v: 20, start: "20:00", end: "22:00" }
+    - { v: 18, start: "22:00", end: "00:00" }
+    bedroom1mjpaway:
+    - { v: 18, start: "00:00", end: "07:00" }
+    - { v: 17, start: "07:00", end: "19:00" }
+    - { v: 20, start: "19:00", end: "22:00" }
+    - { v: 18, start: "22:00", end: "00:00" }
+
+  schedule_prepend:
+  - x: "16 if octopus_price() == 'Peak' else Next()"
+  - x: "16 if power_saving() == 'On' else Next()"
+  - x: "16 if heating_mode() == 'Away' else Next()"
+  - x: "18 if heating_season() == 'Summer' else Next()"
+  - x: "16 if heating_mode() == 'Holiday' else Next()"
+
+  schedule_apppend:
+  - x: "IncludeSchedule(schedule_snippets['octopusagile']) if octopus_tariff() == 'Agile'"
+
+  rooms:
+    entrance:
+      rescheduling_delay: 60
+      actors:
+        climate.entrance_heater:
+      schedule:
+      - weekdays: 1-7
+        rules:
+        - x: "23 if octopus_price() == 'Plunge' else Next()"
+        - x: "17 if heating_bedtime() == 'on' else Next()"
+        - x: "10 if is_on('binary_sensor.frontdoor_contact') else Next()"
+        - x: "10 if is_on('binary_sensor.backdoor_contact') else Next()"
+        - x: "10 if is_on('binary_sensor.slidingdoor_contact') else Next()"
+        - x: "17 if heating_active_downstairs() == 'off' else Next()"
+        - x: "IncludeSchedule(schedule_snippets['default']) if mandj_location() == 'Away' else Next()"
+        - x: "IncludeSchedule(schedule_snippets['home']) if heating_mode() == 'Home' else Next()"
+        - v: 17
+
+#    downstairsufh:
+#      rescheduling_delay: 60
+#      actors:
+#        climate.entrance_ufh:
+#        climate.passage_ufh:
+#        climate.diningroom_ufh:
+#      schedule:
+#      - weekdays: 1-7
+#        rules:
+#        - x: "23 if octopus_price() == 'Plunge' else Next()"
+#        - x: "17 if heating_bedtime() == 'on' else Next()"
+#        - x: "10 if is_on('binary_sensor.frontdoor_contact') else Next()"
+#        - x: "10 if is_on('binary_sensor.backdoor_contact') else Next()"
+#        - x: "10 if is_on('binary_sensor.slidingdoor_contact') else Next()"
+#        - x: "17 if heating_active_downstairs() == 'off' else Next()"
+#        - x: "IncludeSchedule(schedule_snippets['default']) if mandj_location() == 'Away' else Next()"
+#        - x: "IncludeSchedule(schedule_snippets['home']) if heating_mode() == 'Home' else Next()"
+#        - v: 17
+
+    diningroom:
+      rescheduling_delay: 60
+      actors:
+        climate.diningroom_heater:
+      schedule:
+      - weekdays: 1-7
+        rules:
+        - x: "23 if octopus_price() == 'Plunge' else Next()"
+        - x: "17 if heating_bedtime() == 'on' else Next()"
+        - x: "10 if is_on('binary_sensor.frontdoor_contact') else Next()"
+        - x: "10 if is_on('binary_sensor.backdoor_contact') else Next()"
+        - x: "10 if is_on('binary_sensor.slidingdoor_contact') else Next()"
+        - x: "17 if heating_active_downstairs() == 'off' else Next()"
+        - x: "IncludeSchedule(schedule_snippets['default']) if mandj_location() == 'Away' else Next()"
+        - x: "IncludeSchedule(schedule_snippets['home']) if heating_mode() == 'Home' else Next()"
+        - v: 17
+
+    kitchen:
+      rescheduling_delay: 60
+      actors:
+        climate.kitchen_heater:
+      schedule:
+      - weekdays: 1-7
+        rules:
+        - x: "23 if octopus_price() == 'Plunge' else Next()"
+        - x: "17 if heating_bedtime() == 'on' else Next()"
+        - x: "10 if is_on('binary_sensor.frontdoor_contact') else Next()"
+        - x: "10 if is_on('binary_sensor.backdoor_contact') else Next()"
+        - x: "10 if is_on('binary_sensor.slidingdoor_contact') else Next()"
+        - x: "17 if heating_active_downstairs() == 'off' else Next()"
+        - x: "IncludeSchedule(schedule_snippets['default']) if mandj_location() == 'Away' else Next()"
+        - x: "IncludeSchedule(schedule_snippets['home']) if heating_mode() == 'Home' else Next()"
+        - v: 17
+
+    lounge:
+      rescheduling_delay: 60
+      actors:
+        climate.lounge_front_heater:
+        climate.lounge_side_heater:
+      schedule:
+      - weekdays: 1-5
+        rules:
+        - x: "23 if octopus_price() == 'Plunge' else Next()"
+        - x: "17 if heating_bedtime() == 'on' else Next()"
+        - x: "17 if heating_active_downstairs() == 'off' else Next()"
+        - x: "IncludeSchedule(schedule_snippets['default']) if mandj_location() == 'Away' else Next()"
+        - x: "IncludeSchedule(schedule_snippets['loungemjpaway']) if mjp_location() == 'Away' else Next()"
+        - x: "IncludeSchedule(schedule_snippets['loungeweekend']) if heating_mode() == 'OffWork' else Next()"
+        - x: "IncludeSchedule(schedule_snippets['loungeweekday']) if heating_mode() == 'Home' else Next()"
+        - v: 17
+      - weekdays: 6-7
+        rules:
+        - x: "23 if octopus_price() == 'Plunge' else Next()"
+        - x: "17 if heating_bedtime() == 'on' else Next()"
+        - x: "17 if heating_active_downstairs() == 'off' else Next()"
+        - x: "IncludeSchedule(schedule_snippets['default']) if mandj_location() == 'Away' else Next()"
+        - x: "IncludeSchedule(schedule_snippets['loungeweekendworking']) if heating_weekendworking() == 'on' else Next()"
+        - x: "IncludeSchedule(schedule_snippets['loungemjpaway']) if mjp_location() == 'Away' else Next()"
+        - x: "IncludeSchedule(schedule_snippets['loungeweekend']) if heating_mode() == 'Home' else Next()"
+        - v: 17
+
+    office:
+      rescheduling_delay: 60
+      actors:
+        climate.office_side_heater:
+        climate.office_front_heater:
+      schedule:
+      - weekdays: 1-5
+        rules:
+        - x: "23 if octopus_price() == 'Plunge' else Next()"
+        - x: "17 if heating_active_downstairs() == 'off' else Next()"
+        - x: "IncludeSchedule(schedule_snippets['default']) if mandj_location() == 'Away' else Next()"
+        - x: "IncludeSchedule(schedule_snippets['officehours']) if mjp_location() == 'Away' else Next()"
+        - x: "IncludeSchedule(schedule_snippets['default']) if heating_mode() == 'OffWork' else Next()"
+        - x: "IncludeSchedule(schedule_snippets['officehours']) if heating_mode() == 'Home' else Next()"
+        - v: 17
+      - weekdays: 6-7
+        rules:
+        - x: "23 if octopus_price() == 'Plunge' else Next()"
+        - x: "17 if heating_active_downstairs() == 'off' else Next()"
+        - x: "IncludeSchedule(schedule_snippets['weekendworking']) if heating_weekendworking() == 'on' else Next()"
+        - v: 17
+
+    masterbathroom:
+      rescheduling_delay: 60
+      actors:
+        climate.master_bathroom_heater:
+      schedule:
+      - weekdays: 1-7
+        rules:
+        - x: "23 if octopus_price() == 'Plunge' else Next()"
+        - x: "17 if heating_active_upstairs() == 'off' else Next()"
+        - v: 17
+
+    guestbathroom:
+      rescheduling_delay: 60
+      actors:
+        climate.guest_bathroom_heater:
+      schedule:
+      - weekdays: 1-7
+        rules:
+        - x: "23 if octopus_price() == 'Plunge' else Next()"
+        - x: "17 if heating_active_upstairs() == 'off' else Next()"
+        - v: 17
+
+    bedroom1:
+      rescheduling_delay: 60
+      actors:
+        climate.bedroom1_heater:
+      schedule:
+      - weekdays: 1-7
+        rules:
+        - x: "20 if heating_bedtime() == 'on' else Next()"
+        - x: "17 if heating_active_upstairs() == 'off' else Next()"
+        - x: "IncludeSchedule(schedule_snippets['default']) if mandj_location() == 'Away' else Next()"
+        - x: "IncludeSchedule(schedule_snippets['bedroom1mjpaway']) if mjp_location() == 'Away' else Next()"
+        - x: "IncludeSchedule(schedule_snippets['bedroom1']) if heating_mode() == 'Home' else Next()"
+        - v: 17
+
+    bedroom2:
+      rescheduling_delay: 60
+      actors:
+        climate.bedroom2_heater:
+      schedule:
+      - weekdays: 1-5
+        rules:
+#        - x: "20 if heating_bedtime() == 'on' else Next()" # With guests
+        - x: "17 if heating_active_upstairs() == 'off' else Next()"
+#        - x: "21 if heating_mjptraining() == 'on' else Next()"
+        - x: "IncludeSchedule(schedule_snippets['mjptraining']) if heating_mjptraining() == 'on' else Next()"
+        - x: "IncludeSchedule(schedule_snippets['hobbying']) if heating_hobbying() == 'on' else Next()"
+#        - x: "IncludeSchedule(schedule_snippets['bedrooms'])" # With guests
+        - v: 17
+      - weekdays: 6-7
+        rules:
+#        - x: "20 if heating_bedtime() == 'on' else Next()" # With guests
+#        - x: "17 if heating_active_upstairs() == 'off' else Next()"
+#        - x: "21 if heating_mjptraining() == 'on' else Next()"
+        - x: "IncludeSchedule(schedule_snippets['hobbying']) if heating_hobbying() == 'on' else Next()"
+#        - x: "IncludeSchedule(schedule_snippets['bedrooms'])" # With guests
+        - v: 17
+
+    bedroom3:
+      rescheduling_delay: 60
+      actors:
+        climate.bedroom3_heater:
+      schedule:
+      - weekdays: 1-7
+        rules:
+        - x: "17 if bsp_location() == 'Away' else Next()"
+        - x: "20 if heating_bedtime() == 'on' else Next()"
+        - x: "17 if heating_active_upstairs() == 'off' else Next()"
+        - x: "IncludeSchedule(schedule_snippets['bedrooms']) if heating_mode() == 'Home' else Next()"
+        - v: 17
+
+    bedroom4:
+      rescheduling_delay: 60
+      actors:
+        climate.bedroom1_heater:
+      schedule:
+      - weekdays: 1-7
+        rules:
+#        - x: "20 if heating_bedtime() == 'on' else Next()"
+        - x: "17 if heating_active_upstairs() == 'off' else Next()"
+#        - x: "IncludeSchedule(schedule_snippets['bedrooms'])"
+        - v: 17

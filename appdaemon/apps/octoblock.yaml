@@ -1,0 +1,71 @@
+#https://github.com/badguy99/octoblock
+octo_block_current:
+  module: octoblock
+  class: OctoBlock
+  region: B
+  use_timezone: True
+  blocks:
+    - hour: 1.5
+      import: True
+      export: False
+      start_period: now
+      name: octopus_dishwasher
+    - hour: 2
+      import: True
+      export: False
+      start_period: now
+      name: octopus_tumbledryer
+    - hour: 2.5
+      import: True
+      export: False
+      start_period: now
+      name: octopus_washingmachine
+    - hour: 0.5
+      import: True
+      export: False
+      start_period: now
+      name: octopus_best30min
+    - hour: 1
+      import: True
+      export: False
+      start_period: now
+      name: octopus_best1hour
+    - hour: 1.5
+      import: True
+      export: False
+      start_period: now
+      name: octopus_best1hour30min
+    - hour: 2
+      import: True
+      export: False
+      start_period: now
+      name: octopus_best2hour
+    - hour: 2.5
+      import: True
+      export: False
+      start_period: now
+      name: octopus_best2hour30min
+    - hour: 3
+      import: True
+      export: False
+      start_period: now
+      name: octopus_best3hour
+    - hour: 0
+      start_period: now
+      name: octopus_current_import
+#    - hour: "next"
+#      start_period: now
+#      name: octopus_next_import
+
+#    - hour: 0
+#      import: True
+#      export: False
+#      start_period: now
+#      name: octopus_current_export
+
+#  lookaheads:
+#    - price: 5.0
+#      operation: below
+#      and_equal: True
+#      duration_ahead: 12
+#      name: charge_solar_battery

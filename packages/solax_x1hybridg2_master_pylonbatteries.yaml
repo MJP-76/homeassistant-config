@@ -1,0 +1,498 @@
+# Solax SK-SU5000E Inverter & 3 x Pylontech US3000 Batteries
+# SolaX SK-SU5000E
+# https://www.solaxpower.com/wp-content/uploads/2017/01/X-Hybrid-Install-Guide.pdf
+# https://www.solaxpower.com/wp-content/uploads/2017/11/SK-SU-datasheetNL-.pdf
+# Pylontech US3000 batteries tech spec 37 (Recommend) 74 (Max) 100 (Peak@15s)
+# http://www.pylontech.com.cn/pro_detail.aspx?id=121&cid=23
+
+# Based on https://github.com/wills106/homeassistant-config/blob/master/packages/x1master_x1_hybrid_g3_triplepower.yaml
+#
+# Will not work prior to 2020.12.0 version of Home Assistant
+#
+
+modbus:
+  name: X1Master
+  type: tcp # Comment out for RS485
+  host: !secret x1master_lan_ip # Comment out for RS485
+  port: 502 # Comment out for RS485
+
+sensor:
+- platform: modbus
+  scan_interval: 2
+  registers:
+  # Test Registers
+    - name: X1Master BMS Warning
+      hub: X1Master
+      register: 31
+      register_type: input
+    - name: X1Master Battery State of Health # Value Not Clear
+      hub: X1Master
+      register: 35
+      register_type: input
+
+# Test Holding Registers
+    - name: X1Master Serial Number
+      hub: X1Master
+      register: 0
+      count: 7
+      data_type: string
+
+  # Holding Registers
+    - name: X1Master Group h1
+      hub: X1Master
+      register: 139
+      count: 19
+      data_type: custom
+      structure: ">19H"
+
+    - name: X1Master Group h2
+      hub: X1Master
+      register: 180
+      count: 8
+      data_type: custom
+      structure: ">8H"
+
+  # Input Registers
+    - name: X1Master Group i1
+      hub: X1Master
+      register: 0
+      register_type: input
+      count: 30
+      data_type: custom
+      structure: ">H2h5Hh3Hh7H3hHh5H"
+
+    - name: X1Master Group i2
+      hub: X1Master
+      register: 70
+      register_type: input
+      count: 14
+      data_type: custom
+      structure: ">2h10HI"
+
+- platform: template
+  sensors:
+# X1Master Group H1
+    x1master_charger_use_mode:
+      friendly_name: "X1Master Charger Use Mode"
+      value_template: "{{ states('sensor.x1master_group_h1').split(',')[0] }}"
+    x1master_battery_min_capacity:
+      friendly_name: "X1Master Battery Minimum Capacity"
+      unit_of_measurement: "%"
+      value_template: "{{ states('sensor.x1master_group_h1').split(',')[1] }}"
+    x1master_battery_type:
+      friendly_name: "X1Master Battery Type"
+      value_template: "{{ states('sensor.x1master_group_h1').split(',')[2] }}"
+    x1master_battery_charge_float_voltage:
+      friendly_name: "X1Master Battery Charge Float Voltage"
+      unit_of_measurement: V
+      value_template: "{{ states('sensor.x1master_group_h1').split(',')[3]| float / 10 }}"
+    x1master_battery_discharge_cut_off_voltage:
+      friendly_name: "X1Master Battery Discharge Cut Off Voltage"
+      unit_of_measurement: V
+      value_template: "{{ states('sensor.x1master_group_h1').split(',')[4]| float / 10 }}"
+    x1master_battery_charge_max_current:
+      friendly_name: "X1Master Battery Charge Maximum Current"
+      unit_of_measurement: A
+      value_template: "{{ states('sensor.x1master_group_h1').split(',')[5]| float / 100 }}"
+    x1master_battery_discharge_max_current:
+      friendly_name: "X1Master Battery Discharge Maximum Current"
+      unit_of_measurement: A
+      value_template: "{{ states('sensor.x1master_group_h1').split(',')[6]| float / 100 }}"
+    x1master_charger_start_time_1:
+      friendly_name: "X1Master Charger Start Time 1"
+      value_template: "{{ states('sensor.x1master_group_h1').split(',')[7] }}:{{ states('sensor.x1master_group_h1').split(',')[8] }}"
+    x1master_charger_end_time_1:
+      friendly_name: "X1Master Charger End Time 1"
+      value_template: "{{ states('sensor.x1master_group_h1').split(',')[9] }}:{{ states('sensor.x1master_group_h1').split(',')[10] }}"
+    x1master_charger_start_time_2:
+      friendly_name: "X1Master Charger Start Time 2"
+      value_template: "{{ states('sensor.x1master_group_h1').split(',')[15] }}:{{ states('sensor.x1master_group_h1').split(',')[16] }}"
+    x1master_charger_end_time_2:
+      friendly_name: "X1Master Charger End Time 2"
+      value_template: "{{ states('sensor.x1master_group_h1').split(',')[17] }}:{{ states('sensor.x1master_group_h1').split(',')[18] }}"
+
+# X1Master Group H1
+    x1master_allow_grid_charge:
+      friendly_name: "X1Master Allow Grid Charge"
+      value_template: "{{ states('sensor.x1master_group_h2').split(',')[0] }}"
+    x1master_export_control_factory_limit:
+      friendly_name: "X1Master Export Control Factory Limit"
+      unit_of_measurement: W
+      value_template: "{{ states('sensor.x1master_group_h2').split(',')[1]| float / 10 }}"
+    x1master_export_control_user_limit:
+      friendly_name: "X1Master Export Control User Limit"
+      unit_of_measurement: W
+      value_template: "{{ states('sensor.x1master_group_h2').split(',')[2]| float / 10 }}"
+    x1master_eps_mute:
+      friendly_name: "X1Master EPS Mute"
+      value_template: "{{ states('sensor.x1master_group_h2').split(',')[3] }}"
+    x1master_eps_set_frequency:
+      friendly_name: "X1Master EPS Set Frequency"
+      value_template: "{{ states('sensor.x1master_group_h2').split(',')[4] }}"
+    x1master_inverter_rate_power:
+      friendly_name: "X1Master Inverter rate Power"
+      unit_of_measurement: W
+      value_template: "{{ states('sensor.x1master_group_h2').split(',')[6] }}"
+    x1master_language:
+      friendly_name: "X1Master Language / Sprache"
+      value_template: "{{ states('sensor.x1master_group_h2').split(',')[7] }}"
+
+# X1Master Group I1
+    x1master_inverter_voltage:
+      friendly_name: "X1Master Inverter Voltage"
+      unit_of_measurement: V
+      value_template: "{{ states('sensor.x1master_group_i1').split(',')[0]| float / 10 }}"
+    x1master_inverter_current:
+      friendly_name: "X1Master Inverter Current"
+      unit_of_measurement: A
+      value_template: "{{ states('sensor.x1master_group_i1').split(',')[1]| float / 10 }}"
+    x1master_inverter_load:
+      friendly_name: "X1Master Inverter Power"
+      unit_of_measurement: W
+      value_template: "{{ states('sensor.x1master_group_i1').split(',')[2] }}"
+    x1master_pv_voltage_1:
+      friendly_name: "X1Master PV Voltage 1"
+      unit_of_measurement: V
+      value_template: "{{ states('sensor.x1master_group_i1').split(',')[3]| float / 10 }}"
+    x1master_pv_voltage_2:
+      friendly_name: "X1Master PV Voltage 2"
+      unit_of_measurement: V
+      value_template: "{{ states('sensor.x1master_group_i1').split(',')[4]| float / 10 }}"
+    x1master_pv_current_1:
+      friendly_name: "X1Master PV Current 1"
+      unit_of_measurement: A
+      value_template: "{{ states('sensor.x1master_group_i1').split(',')[5]| float / 10 }}"
+    x1master_pv_current_2:
+      friendly_name: "X1Master PV Current 2"
+      unit_of_measurement: A
+      value_template: "{{ states('sensor.x1master_group_i1').split(',')[6]| float / 10 }}"
+    x1master_grid_frequency:
+      friendly_name: "X1Master Grid Frequency"
+      unit_of_measurement: Hz
+      value_template: "{{ states('sensor.x1master_group_i1').split(',')[7]| float / 100 }}"
+    x1master_inverter_temperature:
+      friendly_name: "X1Master Inverter Temperature"
+      unit_of_measurement: °C
+      value_template: "{{ states('sensor.x1master_group_i1').split(',')[8] }}"
+    x1master_run_mode:
+      friendly_name: "X1Master Run Mode"
+      value_template: "{{ states('sensor.x1master_group_i1').split(',')[9] }}"
+    x1master_pv_power_1:
+      friendly_name: "X1Master PV Power 1"
+      unit_of_measurement: W
+      value_template: "{{ states('sensor.x1master_group_i1').split(',')[10] }}"
+    x1master_pv_power_2:
+      friendly_name: "X1Master PV Power 2"
+      unit_of_measurement: W
+      value_template: "{{ states('sensor.x1master_group_i1').split(',')[11] }}"
+    x1master_time_count_down:
+      friendly_name: "X1Master Time Count Down"
+      unit_of_measurement: s
+      value_template: "{{ states('sensor.x1master_group_i1').split(',')[19]| float / 1000 }}"
+    x1master_battery_voltage_charge:
+      friendly_name: "X1Master Battery Voltage"
+      unit_of_measurement: V
+      value_template: "{{ states('sensor.x1master_group_i1').split(',')[20]| float / 100 }}"
+    x1master_battery_current_charge:
+      friendly_name: "X1Master Battery Curent"
+      unit_of_measurement: A
+      value_template: "{{ states('sensor.x1master_group_i1').split(',')[21]| float / 100 }}"
+    x1master_battery_power_charge:
+      friendly_name: "X1Master Battery Power"
+      unit_of_measurement: W
+      value_template: "{{ states('sensor.x1master_group_i1').split(',')[22] }}"
+    x1master_bms_connect_state:
+      friendly_name: "X1Master BMS Connect State"
+      value_template: "{{ states('sensor.x1master_group_i1').split(',')[23] }}"
+    x1master_battery_temperature:
+      friendly_name: "X1Master Battery Temperature"
+      unit_of_measurement: °C
+      value_template: "{{ states('sensor.x1master_group_i1').split(',')[24] }}"
+    x1master_battery_capacity_charge:
+      friendly_name: "X1Master Battery Capacity"
+      unit_of_measurement: "%"
+      value_template: "{{ states('sensor.x1master_group_i1').split(',')[28] }}"
+# X1Master Group I2
+    x1master_feedin_power:
+      friendly_name: "X1Master Measured Power"
+      unit_of_measurement: W
+      value_template: "{{ states('sensor.x1master_group_i2').split(',')[0] }}"
+    x1master_feedin_energy_total:
+      friendly_name: "X1Master Feedin Energy Total"
+      unit_of_measurement: kWh
+      value_template: "{{ states('sensor.x1master_group_i2').split(',')[2]| float / 10 }}"
+    x1master_consumed_energy_total:
+      friendly_name: "X1Master Consumed Energy Total"
+      unit_of_measurement: kWh
+      value_template: "{{ states('sensor.x1master_group_i2').split(',')[4]| float / 100 }}"
+    x1master_energy_today:
+      friendly_name: "X1Master Today's Yield"
+      unit_of_measurement: kWh
+      value_template: "{{ states('sensor.x1master_group_i2').split(',')[10]| float / 10 }}"
+    x1master_total_energy_to_grid:
+      friendly_name: "X1Master Total Export"
+      unit_of_measurement: kWh
+      value_template: "{{ states('sensor.x1master_group_i2').split(',')[12]| float / 1000 }}"
+    x1master_eps_volatge:
+      friendly_name: "X1Master EPS Voltage"
+      unit_of_measurement: V
+      value_template: "{{ states('sensor.x1master_group_i2').split(',')[6]| float / 100 }}"
+    x1master_eps_current:
+      friendly_name: "X1Master EPS Current"
+      unit_of_measurement: A
+      value_template: "{{ states('sensor.x1master_group_i2').split(',')[7]| float / 100 }}"
+    x1master_eps_power:
+      friendly_name: "X1Master EPS Power"
+      unit_of_measurement: VA
+      value_template: "{{ states('sensor.x1master_group_i2').split(',')[8] }}"
+    x1master_eps_frequency:
+      friendly_name: "X1Master EPS Frequency"
+      unit_of_measurement: Hz
+      value_template: "{{ states('sensor.x1master_group_i2').split(',')[9]| float / 10 }}"
+
+# Combine PV1 and PV2 power
+    x1master_pv_total_power:
+      friendly_name: "X1Master PV Total Power"
+      value_template: "{{ states('sensor.x1master_pv_power_1') | int + states('sensor.x1master_pv_power_2') | int }}"
+      unit_of_measurement: 'W'
+
+    x1master_run_mode_template:
+      friendly_name: "X1Master Run Mode"
+      value_template: >-
+        {% if is_state('sensor.x1master_run_mode', '0') %}
+          Waiting
+        {% elif is_state('sensor.x1master_run_mode', '1') %}
+          Checking
+        {% elif is_state('sensor.x1master_run_mode', '2') %}
+          Normal Mode
+        {% elif is_state('sensor.x1master_run_mode', '3') %}
+          Off Mode
+        {% elif is_state('sensor.x1master_run_mode', '4') %}
+          Pemanent Fault Mode
+        {% elif is_state('sensor.x1master_run_mode', '5') %}
+          Update Mode
+        {% elif is_state('sensor.x1master_run_mode', '6') %}
+          EPS Check Mode
+        {% elif is_state('sensor.x1master_run_mode', '7') %}
+          EPS Mode
+        {% elif is_state('sensor.x1master_run_mode', '8') %}
+          Self Test
+        {% elif is_state('sensor.x1master_run_mode', '9') %}
+          Idle Mode
+        {% else %}
+          Unknown
+        {% endif %}
+
+
+    x1master_charger_use_mode_template:
+      friendly_name: "X1Master Charger Use Mode"
+      value_template: >-
+        {% if is_state('sensor.x1master_charger_use_mode', '0') %}
+          Self Use Mode
+        {% elif is_state('sensor.x1master_charger_use_mode', '1') %}
+          Force Time Use
+        {% elif is_state('sensor.x1master_charger_use_mode', '2') %}
+          Back Up Mode
+        {% elif is_state('sensor.x1master_charger_use_mode', '3') %}
+          Feedin Priority
+        {% else %}
+          Unknown
+        {% endif %}
+
+    x1master_bms_connect_state_template:
+      friendly_name: "X1Master BMS Connect State"
+      value_template: >-
+        {% if is_state('sensor.x1master_bms_connect_state', '0') %}
+          Disconnected
+        {% elif is_state('sensor.x1master_bms_connect_state', '38') %}
+          Connected
+        {% else %}
+          Unknown
+        {% endif %}
+
+    x1master_battery_type_template:
+      friendly_name: "X1Master Battery Type"
+      value_template: >-
+        {% if is_state('sensor.x1master_battery_type', '0') %}
+          Lead Acid
+        {% elif is_state('sensor.x1master_battery_type', '1') %}
+          Lithium
+        {% else %}
+          Unknown
+        {% endif %}
+
+    x1master_allow_grid_charge_template:
+      friendly_name: "X1Master Allow Grid Charge"
+      value_template: >-
+        {% if is_state('sensor.x1master_allow_grid_charge', '0') %}
+          Forbidden
+        {% elif is_state('sensor.x1master_allow_grid_charge', '1') %}
+          Charger Time 1
+        {% elif is_state('sensor.x1master_allow_grid_charge', '2') %}
+          Charger Time 2
+        {% elif is_state('sensor.x1master_allow_grid_charge', '3') %}
+          Both Charger Time's
+        {% else %}
+          Unknown
+        {% endif %}
+
+input_boolean:
+  x1master_backup:
+    name: X1Master Backup Mode
+  x1master_forcetime:
+    name: X1Master Force Time
+  x1master_grid_charge:
+    name: X1Master Grid Charge
+
+# Based on SK-SU5000E & Pylontech US3000
+input_number:
+  x1master_battery_charge:
+    icon: mdi:battery-plus
+    name: X1Master Charge A
+    initial: 50  #Charger/Battery dependant
+    min: 0
+    max: 50  #Charger/Battery dependant
+    step: 1
+
+# Based on SK-SU5000E & Pylontech US3000
+  x1master_battery_discharge:
+    name: X1Master Disharge A
+    icon: mdi:battery-minus
+    initial: 50 #Charger/Battery dependant
+    min: 0
+    max: 50 #Charger/Battery dependant
+    step: 1
+
+automation:
+  - alias: X1Master Battery Charge Rate
+    trigger:
+      platform: state
+      entity_id: input_number.x1master_battery_charge
+    action:
+    - service: modbus.write_register # Battery Charge
+      data_template:
+        hub: X1Master
+        unit: '255'
+        address: '36'
+        value: "{{ (trigger.to_state.state | float * 100) | int }}"
+    - delay: '00:00:01'
+    - service: modbus.write_register # Repeast Battery Charge incase Inverter missed first
+      data_template:
+        hub: X1Master
+        unit: '255'
+        address: '36'
+        value: "{{ (trigger.to_state.state | float * 100) | int }}"
+
+  - alias: X1Master Battery Disharge Rate
+    trigger:
+      platform: state
+      entity_id: input_number.x1master_battery_discharge
+    action:
+    - service: modbus.write_register # Battery Discharge
+      data_template:
+        hub: X1Master
+        unit: '255'
+        address: '37'
+        value: "{{ (trigger.to_state.state | float * 100) | int }}"
+    - delay: '00:00:01'
+    - service: modbus.write_register # Repeat Battery Discharge incase Inverter missed first
+      data_template:
+        hub: X1Master
+        unit: '255'
+        address: '37'
+        value: "{{ (trigger.to_state.state | float * 100) | int }}"
+
+  - alias: "X1Master Battery Min Energy %"
+    trigger:
+      platform: state
+      entity_id: input_number.battery_min_energy
+    action:
+    - service: modbus.write_register # Min Discharge %
+      data_template:
+        hub: X1Master
+        unit: '255'
+        address: '32'
+        value: "{{ trigger.to_state.state | int }}"
+
+# Enable/Disable EPS Mode
+  - alias: X1Master Backup - On
+    trigger:
+      platform: state
+      entity_id: input_boolean.x1master_backup
+      to: 'on'
+    action:
+    - service: modbus.write_register
+      data_template:
+        hub: X1Master
+        unit: '255'
+        address: '31'
+        value: '2'
+    - delay: 00:00:01
+    - service: modbus.write_register
+      data_template:
+        hub: X1Master
+        unit: '255'
+        address: '31'
+        value: '2'
+
+  - alias: X1Master Backup - Off
+    trigger:
+      platform: state
+      entity_id: input_boolean.x1master_backup
+      to: 'off'
+    action:
+    - delay: 00:00:01
+    - service: modbus.write_register
+      data_template:
+        hub: X1Master
+        unit: '255'
+        address: '31'
+        value: '0'
+    - delay: 00:00:01
+    - service: modbus.write_register
+      data_template:
+        hub: X1Master
+        unit: '255'
+        address: '31'
+        value: '0'
+
+# Enable/Disable ForceTime/Self Use Modes
+  - alias: X1Master ForceTime - On
+    trigger:
+      platform: state
+      entity_id: input_boolean.x1master_forcetime
+      to: 'on'
+    action:
+    - service: modbus.write_register # Force Time Mode
+      data_template:
+        hub: X1Master
+        unit: '255'
+        address: '31'
+        value: '1'
+    - delay: '00:00:01'
+    - service: modbus.write_register # 2nd Force Time Mode incase Inverter missed first
+      data_template:
+        hub: X1Master
+        unit: '255'
+        address: '31'
+        value: '1'
+
+  - alias: X1Master ForceTime - Off
+    trigger:
+      platform: state
+      entity_id: input_boolean.x1master_forcetime
+      to: 'off'
+    action:
+    - service: modbus.write_register # Auto Mode
+      data_template:
+        hub: X1Master
+        unit: '255'
+        address: '31'
+        value: '0'
+    - delay: '00:00:01'
+    - service: modbus.write_register # 2nd Auto Mode incase Inverter missed first
+      data_template:
+        hub: X1Master
+        unit: '255'
+        address: '31'
+        value: '0'

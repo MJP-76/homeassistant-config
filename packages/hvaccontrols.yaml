@@ -1,0 +1,164 @@
+input_select:
+# Heating Mode
+  heating_mode:
+    name: Heating Mode
+    options:
+      - Home
+      - OffWork
+      - Away
+      - Holiday
+      - Early Bedtime
+
+# Heating Season
+  heating_season:
+    name: Heating Season
+    options:
+      - Winter
+      - Summer
+
+# Dehumidifires Status
+  bedroom1dehumidifier:
+    name: Bedroom1 Dehumidifier
+    options:
+      - Empty Me
+      - Filling Up
+
+  bathroomdehumidifier:
+    name: Bathroom Dehumidifier
+    options:
+      - Empty Me
+      - Filling Up
+
+  loungedehumidifier:
+    name: Lounge Dehumidifier
+    options:
+      - Empty Me
+      - Filling Up
+
+input_boolean:
+# Turns off downstairs Heaters and turns on Bedroom heaters
+  heating_bedtime:
+    name: Bedtime Heating
+    initial: off
+    icon: mdi:radiator
+
+# Turns on bedroom2 heater when MJP is training
+  heating_mjptraining:
+    name: MJP Training
+    initial: off
+    icon: mdi:cast-education
+
+# Turns on bedroom2 heater when MJP is training
+  heating_hobbying:
+    name: M&J Hobbying
+    initial: off
+    icon: mdi:brush
+
+# Turns on office heaters when working weekends
+  heating_weekendworking:
+    name: Weekend Working
+    initial: off
+    icon: mdi:briefcase
+
+# Used to force a heating schedule re-evaluation automation every
+  heating_active_minutes:
+    name: Heating Active
+    initial: off
+    icon: mdi:clock-outline
+
+# Used to force a heating schedule re-evaluation automation every
+  heating_active_upstairs:
+    name: Heating Active
+    initial: off
+    icon: mdi:clock-outline
+
+# Used to force a heating schedule re-evaluation automation every
+  heating_active_downstairs:
+    name: Heating Active
+    initial: off
+    icon: mdi:clock-outline
+
+automation:
+  - alias: Heating - Reset Manual Control
+    description: ''
+    trigger:
+    - platform: time
+      at: '17:00:00'
+    action:
+    - service: input_boolean.turn_off
+      data: {}
+      entity_id: input_boolean.heating_hobbying
+    - service: input_boolean.turn_off
+      data: {}
+      entity_id: input_boolean.heating_weekendworking
+
+  - alias: Heating - Reset MJPTraining
+    description: ''
+    trigger:
+    - platform: time
+      at: '17:00:00'
+    condition:
+    - condition: time
+      weekday:
+      - thu
+    action:
+    - service: input_boolean.turn_off
+      data: {}
+      entity_id: input_boolean.heating_mjptraining
+    mode: single
+
+binary_sensor:
+- platform: template
+  sensors:
+    heater_status_office_front:
+      friendly_name: "Heater Status - Office Front"
+      value_template: >
+        {{ is_state_attr('climate.office_front_heater', 'hvac_action', 'heating') }}
+    heater_status_office_side:
+      friendly_name: "Heater Status - Office Side"
+      value_template: >
+        {{ is_state_attr('climate.office_side_heater', 'hvac_action', 'heating') }}
+    heater_status_lounge_front:
+      friendly_name: "Heater Status - Lounge Front"
+      value_template: >
+        {{ is_state_attr('climate.liunge_front_heater', 'hvac_action', 'heating') }}
+    heater_status_lounge_side:
+      friendly_name: "Heater Status - Lounge Side"
+      value_template: >
+        {{ is_state_attr('climate.lounge_side_heater', 'hvac_action', 'heating') }}
+    heater_status_entrance_heater:
+      friendly_name: "Heater Status - Entrance"
+      value_template: >
+        {{ is_state_attr('climate.entrance_heater', 'hvac_action', 'heating') }}
+    heater_status_diningroom_heater:
+      friendly_name: "Heater Status - Diningroom"
+      value_template: >
+        {{ is_state_attr('climate.diningroom_heater', 'hvac_action', 'heating') }}
+    heater_status_kitchen_heater:
+      friendly_name: "Heater Status - Kitchen"
+      value_template: >
+        {{ is_state_attr('climate.kitchen_heater', 'hvac_action', 'heating') }}
+    heater_status_guest_bathroom_heater:
+      friendly_name: "Heater Status - Guest Bathroom"
+      value_template: >
+        {{ is_state_attr('climate.guest_bathroom_heater', 'hvac_action', 'heating') }}
+    heater_status_master_bathroom_heater:
+      friendly_name: "Heater Status - Master Bathroom"
+      value_template: >
+        {{ is_state_attr('climate.master_bathroom_heater', 'hvac_action', 'heating') }}
+    heater_status_bedroom1_heater:
+      friendly_name: "Heater Status - Bedroom1"
+      value_template: >
+        {{ is_state_attr('climate.bedroom1_heater', 'hvac_action', 'heating') }}
+    heater_status_bedroom2_heater:
+      friendly_name: "Heater Status - Bedroom2"
+      value_template: >
+        {{ is_state_attr('climate.bedroom2_heater', 'hvac_action', 'heating') }}
+    heater_status_bedroom3_heater:
+      friendly_name: "Heater Status - Bedroom3"
+      value_template: >
+        {{ is_state_attr('climate.bedroom3_heater', 'hvac_action', 'heating') }}
+    heater_status_bedroom4_heater:
+      friendly_name: "Heater Status - Bedroom4"
+      value_template: >
+        {{ is_state_attr('climate.bedroom4_heater', 'hvac_action', 'heating') }}

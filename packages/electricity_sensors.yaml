@@ -1,0 +1,84 @@
+sensor:
+# IAMMETER Energy Monitor - www.iammeter.com
+- platform: iammeter
+  host: !secret iammeter_tock
+  name: TOCK Meter
+
+- platform: iammeter
+  host: !secret iammeter_annexe
+  name: Annexe Meter
+
+# Template sensors
+# Electricity usage based on SolaX inverter - Is this still needed? should be replaced by iammeter reading
+#    electricity_usage_solax: # Solar Usage
+#      friendly_name: "TOCK Inverter Usage"
+#      unit_of_measurement: 'W'
+#      value_template: >
+#        {% set measured_power = states('sensor.solax_measured_power') | int %}
+#        {% if measured_power > 0 %}
+#          {{ states('sensor.solax_inverter_power') }}
+#        {% else %}
+#          {{ states('sensor.solax_inverter_power') | int - measured_power }}
+#        {% endif %}
+
+- platform: template
+  sensors:
+# Excess Solar production for waterheater
+    electricity_excess_solar_waterheater:
+      friendly_name: "Excess Solar for Waterheater"
+      value_template: "{{ states('sensor.electricity_excess_solar') | int - 2500 | int }}"
+      unit_of_measurement: 'W' # Combine PV1 and PV2 power
+
+# Electricity usage sensors
+    electricity_usage_tock: # TOCK Power Usage
+      friendly_name: "TOCK Meter Usage"
+      unit_of_measurement: 'W'
+      value_template: "{{ states('sensor.tock_meter_power') | int }}"
+
+    electricity_usage_bighouse: # Big Houe Power Usage
+      friendly_name: "Bighouse Usage"
+      unit_of_measurement: 'W'
+      value_template: >
+        {% set tock_power = states('sensor.tock_meter_power') |int %}
+        {% set annexe_power = states('sensor.annexe_meter_power') |int %}
+        {% set battery_power = states('sensor.total_battery_power_charge') |int %}
+        {% set solar_power = states('sensor.pv_total_power') |int%}
+        {% set bighouse_power = states('sensor.tock_meter_power') |int - states('sensor.annexe_meter_power') |int %}
+        {% if battery_power < 0 %}
+          {{bighouse_power + solar_power + (battery_power |int) |abs}}
+        {% else %}
+          {{bighouse_power + solar_power |int}}
+        {% endif %}
+
+    electricity_usage_annexe: # Annexe Power Usage
+      friendly_name: "Annexe Usage"
+      unit_of_measurement: 'W'
+      value_template: "{{ states('sensor.annexe_meter_power') | int }}"
+
+# Electricity current sensors
+    electricity_current_tock: # Big Houe Power Usage
+      friendly_name: "TOCK Current"
+      unit_of_measurement: 'A'
+      value_template: "{{ states('sensor.tock_meter_current') | int }}"
+    electricity_current_bighouse: # Big Houe Power Usage
+      friendly_name: "Bighouse Current"
+      unit_of_measurement: 'A'
+      value_template: "{{ states('sensor.electricity_current_tock') | int - states('sensor.electricity_current_annexe') | int }}"
+    electricity_current_annexe: # Big Houe Power Usage
+      friendly_name: "Annexe Current"
+      unit_of_measurement: 'A'
+      value_template: "{{ states('sensor.annexe_meter_current') | int }}"
+
+# Electricity monthly usage sensors
+    electricity_imported_tock: # TOCK
+      friendly_name: "TOCK Imported Energy"
+      unit_of_measurement: 'kWh'
+      value_template: "{{ states('sensor.tock_meter_importenergy') | int }}"
+    electricity_imported_bighouse: # Bighouse
+      friendly_name: "Bighouse Imported Energy"
+      unit_of_measurement: 'kWh'
+      value_template: "{{ states('sensor.tock_meter_importenergy') | int - states('sensor.annexe_meter_importenergy') | int }}"
+    electricity_imported_annexe: # Annexe
+      friendly_name: "Annexe Imported Energy"
+      unit_of_measurement: 'kWh'
+      value_template: "{{ states('sensor.annexe_meter_importenergy') | int }}"

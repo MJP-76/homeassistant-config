@@ -50,28 +50,33 @@
     WLED
 
 # Lights
-  - Light Wave RF
-  - Zigbee
-    - Lidl GU10
-    -
-  - WLED
-    - QuineLED
+    Light Wave RF
+    Zigbee
+      - Lidl GU10
+      -
+    WLED
+      - QuineLED
 
 # Wall Sockets:
+    Light Wave RF
 
 # HVAC
-  Thermostats:
-    - Xiaomi Aqara Zigbee
-  Storage Heaters:
-    - SonoffTH16 running
+    Thermostats:
+      - Xiaomi Aqara Zigbee
+    Storage Heaters:
+      - SonoffTH16 running
       - ESPHome
-  Underfloor Heating:
-    - BHT-1000 GBW
-      - https://github.com/fashberg/WThermostatBeca
-  Blinds:
-    - Generic RF Blinds
+    Underfloor Heating:
+      - BHT-1000 GBW - https://github.com/fashberg/WThermostatBeca
+    Blinds:
+      - Generic RF Blinds
 
-Waterheaters
-Make: 2 x SonoffPOWR2
-Firmware:
-URL:
+# Waterheaters
+    SonoffPOWR2
+
+# Solar
+    Inverter
+      - Solax X1-Hybrid SKU-SU5000E
+    Batteries
+      - PylonTech US3000
+      - LG Chem

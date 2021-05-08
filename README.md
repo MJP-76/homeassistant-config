@@ -26,10 +26,10 @@ Matthew
   *decommissioned*
 
 # Add-Ons
-- Appdaemon - https://github.com/hassio-addons/addon-appdaemon
-  - hadashboard - https://appdaemon.readthedocs.io/en/latest/DASHBOARD_INSTALL.html
-  - hassapps-schedy - https://hass-apps.readthedocs.io/en/stable/apps/schedy/index.html
-  - octoblock - https://github.com/badguy99/octoblock
+- Appdaemon - https://github.com/hassio-addons/addon-appdaemon  
+    hadashboard - https://appdaemon.readthedocs.io/en/latest/DASHBOARD_INSTALL.html  
+    hassapps-schedy - https://hass-apps.readthedocs.io/en/stable/apps/schedy/index.html  
+    octoblock - https://github.com/badguy99/octoblock  
 - ESPHome - https://esphome.io/
 - Grafana
 - Home Assistant Google Drive Backup - https://github.com/sabeechen/hassio-google-drive-backup
@@ -45,8 +45,8 @@ Matthew
 - ESPHome
 - Garbage Collection
 - HASS Bridge
-- HACS (Home Assistant Community Store)
-  - see HACS subtopic
+- HACS (Home Assistant Community Store)  
+    see HACS subtopic  
 - iOS
 - Konnected.io
 - Life360
@@ -59,28 +59,28 @@ Matthew
 - WLED
 
 # HACS
-- Integrations
-  - BlueIris NVR
-  - Config Check
-  - Solcast
-  - Remote Home-Assistant
-  - AstroWeather
-  - Octopus Agile
-  - Camera combined
-  - Breaking Changes
-  - Anniversaries
-  - Garbage Collection
-- Frontend
-  - Garbage Collection Card
-  - power-distribution-card
-  - surveillance-card
-  - Multiple Entity Row
-  - Canary
-  - Kiosk Mode
-  - Fan Control Entity Row
-- Automation
-  - Octoblock
-  - Auto 'Fan Speed' Controller
+- Integrations  
+    BlueIris NVR  
+    Config Check  
+    Solcast  
+    Remote Home-Assistant  
+    AstroWeather  
+    Octopus Agile  
+    Camera combined  
+    Breaking Changes  
+    Anniversaries  
+    Garbage Collection  
+- Frontend  
+    Garbage Collection Card  
+    power-distribution-card  
+    surveillance-card  
+    Multiple Entity Row  
+    Canary  
+    Kiosk Mode  
+    Fan Control Entity Row  
+- Automation  
+    Octoblock  
+    Auto 'Fan Speed' Controller  
 
 # Devices
 ## WiFi

@@ -127,10 +127,10 @@ TIGO TS4-R-0
 
 # Energy Monitoring
 ## Solar
-    SolaxPortal - https://www.solax-portal.com/
-    TIGO Energy - https://www.tigoenergy.com/
+SolaxPortal - https://www.solax-portal.com/
+TIGO Energy - https://www.tigoenergy.com/
 ## Whole Home
-    IAMMETER - WEM3080 - https://www.iammeter.com
+IAMMETER - WEM3080 - https://www.iammeter.com
 
 # Customization and setup
 I separate my config into individual yaml files or use packages

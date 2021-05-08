@@ -83,23 +83,23 @@ Matthew
 
 # Devices
 ## WiFi
-  - WLED LED
-    - QuineLED
-  - VIGICA - Two Socket + USB WiFi wall Socket  
-    f/w https://esphome.io/
-  - SonoffTH16  
-    f/w https://esphome.io/
-  - SonoffPOWR2
-    f/w https://esphome.io/
-  - SonoffTH16  
-    f/w https://esphome.io/
-  - SonoffMINI  
-    f/w https://esphome.io/
-  - BHT-1000 GBW  
-    f/w https://github.com/fashberg/WThermostatBeca  
+- QuinLED
+  f/w https://quinled.info/
+- VIGICA - Two Socket + USB WiFi wall Socket  
+  f/w https://esphome.io/
+- SonoffTH16  
+  f/w https://esphome.io/
+- SonoffPOWR2
+  f/w https://esphome.io/
+- SonoffTH16  
+  f/w https://esphome.io/
+- SonoffMINI  
+  f/w https://esphome.io/
+- BHT-1000 GBW  
+  f/w https://github.com/fashberg/WThermostatBeca  
 
 ## RF
-- Light Wave RF
+- Light Wave RF  
   - Light Switches
   - Wall Sockets
 - Generic RF Blinds
@@ -121,14 +121,15 @@ Matthew
 
 # Solar Installation
 ## Solax Inverters
-- X1-Hybrid SKU-SU5000E (5Kw)  
-  Evolution Ultramax Solar Panels (285w)  
+- X1-Hybrid SKU-SU5000E *(5Kw)*  
+  Evolution Ultramax Solar Panels *(285w)*  
   PylonTech - US3000  
-- X1-Hybrid SKU-SU5000E (5Kw)  
+- X1-Hybrid SKU-SU5000E *(5Kw)*  
   LG Chem - EM048063P3Sx  
 - X1-Air-Mini 2.5Kw - *decommissioned*
 
-## Solar Panel Optimization (No HA integration)
+## Solar Panel Optimization
+*(No HA integration)*
 - TIGO CCA
 - TIGO TS4-R-0
 

@@ -75,8 +75,16 @@
     SonoffPOWR2
 
 # Solar
-    Inverter
+    Inverter1
       - Solax X1-Hybrid SKU-SU5000E
-    Batteries
       - PylonTech US3000
       - LG Chem
+    Inverter2
+      - Solax X1-Hybrid SKU-SU5000E
+      - PylonTech US3000
+      - LG Chem
+    PV Panels
+      -
+    Optimization
+      No integration
+      - TIGO

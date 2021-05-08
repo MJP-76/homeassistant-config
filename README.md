@@ -22,7 +22,8 @@ Matthew
   - Texas Instruments LAUNCHXL-CC1352P-2
   - f/w https://www.zigbee2mqtt.io/information/flashing_via_uniflash.html
 - Z-Wave
-  -
+  - Aeotec Z-Stick
+  - decommissioned
 
 # Add-Ons
 - Appdaemon - https://github.com/hassio-addons/addon-appdaemon

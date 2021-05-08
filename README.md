@@ -59,27 +59,27 @@ Matthew
 
 # HACS
 - Integrations
-  - BlueIris NVR
-  - Config Check
-  - Solcast
-  - Remote Home-Assistant
-  - AstroWeather
-  - Octopus Agile
-  - Camera combined
-  - Breaking Changes
   - Anniversaries
+  - AstroWeather
+  - BlueIris NVR
+  - Breaking Changes
+  - Camera combined
+  - Config Check
   - Garbage Collection
+  - Octopus Agile
+  - Remote Home-Assistant
+  - Solcast
 - Frontend
+  - Canary
+  - Fan Control Entity Row
   - Garbage Collection Card
+  - Kiosk Mode
+  - Multiple Entity Row
   - power-distribution-card
   - surveillance-card
-  - Multiple Entity Row
-  - Canary
-  - Kiosk Mode
-  - Fan Control Entity Row
 - Automation
-  - Octoblock
   - Auto 'Fan Speed' Controller
+  - Octoblock
 
 # Devices
 ## WiFi

@@ -1,35 +1,30 @@
 # homeassistant-config
 # HA Hardware
-    HASSIO:
+  HASSIO:
     Raspberry Pi 4B+ 8GB + USB SSD (Wired + WiFi)
       https://github.com/home-assistant/operating-system/releases
 
-    RF 433:
+  RF 433:
     RFLink
       https://www.nodo-shop.nl/en/
       f/w http://www.rflink.nl/
 
-    Zigbee:
+  Zigbee:
     Texas Instruments LAUNCHXL-CC1352P-2
       https://www.zigbee2mqtt.io/information/flashing_via_uniflash.html
 
 # Add-Ons:
     Appdaemon
     - hadashboard
-    - hassapps-schedy
-      - https://hass-apps.readthedocs.io/en/stable/apps/schedy/index.html
-    - octoblock
-      - https://github.com/badguy99/octoblock
-    ESPHome
-      - https://esphome.io/
+    - hassapps-schedy - https://hass-apps.readthedocs.io/en/stable/apps/schedy/index.html
+    - octoblock - https://github.com/badguy99/octoblock
+    ESPHome - https://esphome.io/
     Grafana
-    Home Assistant Google Drive Backup
-      - https://github.com/sabeechen/hassio-google-drive-backup
+    Home Assistant Google Drive Backup - https://github.com/sabeechen/hassio-google-drive-backup
     InfluxDB
     Mosquitto broker
     SSH & Web Terminal
-    zigbee2mqtt
-      - https://www.zigbee2mqtt.io/
+    zigbee2mqtt - https://www.zigbee2mqtt.io/
 
 # Integrations
     Apple TV

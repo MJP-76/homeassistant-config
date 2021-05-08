@@ -25,36 +25,36 @@ Matthew
       https://www.zigbee2mqtt.io/information/flashing_via_uniflash.html
 
 # Add-Ons:
-    Appdaemon - https://github.com/hassio-addons/addon-appdaemon
-      - hadashboard - https://appdaemon.readthedocs.io/en/latest/DASHBOARD_INSTALL.html
-      - hassapps-schedy - https://hass-apps.readthedocs.io/en/stable/apps/schedy/index.html
-      - octoblock - https://github.com/badguy99/octoblock
-    ESPHome - https://esphome.io/
-    Grafana
-    Home Assistant Google Drive Backup - https://github.com/sabeechen/hassio-google-drive-backup
-    InfluxDB
-    Mosquitto broker
-    SSH & Web Terminal
-    zigbee2mqtt - https://www.zigbee2mqtt.io/
+- Appdaemon - https://github.com/hassio-addons/addon-appdaemon
+  - hadashboard - https://appdaemon.readthedocs.io/en/latest/DASHBOARD_INSTALL.html
+  - hassapps-schedy - https://hass-apps.readthedocs.io/en/stable/apps/schedy/index.html
+  - octoblock - https://github.com/badguy99/octoblock
+- ESPHome - https://esphome.io/
+- Grafana
+- Home Assistant Google Drive Backup - https://github.com/sabeechen/hassio-google-drive-backup
+- InfluxDB
+- Mosquitto broker
+- SSH & Web Terminal
+- zigbee2mqtt - https://www.zigbee2mqtt.io/
 
 # Integrations
-    Apple TV
-    BlueIris
-    Cloudflare
-    ESPHome
-    Garbage Collection
-    HASS Bridge
-    HACS (Home Assistant Community Store)
-    iOS
-    Konnected.io
-    Life360
-    Mobile App
-    Mosquitto broker
-    SONOS
-    Tasmota
-    Tuya
-    Waze Travel Time
-    WLED
+- Apple TV
+- BlueIris
+- Cloudflare
+- ESPHome
+- Garbage Collection
+- HASS Bridge
+- HACS (Home Assistant Community Store)
+- iOS
+- Konnected.io
+- Life360
+- Mobile App
+- Mosquitto broker
+- SONOS
+- Tasmota
+- Tuya
+- Waze Travel Time
+- WLED
 
 # HACS (Home Assistant Community Store)
     Integrations
@@ -81,30 +81,32 @@ Matthew
     - Auto 'Fan Speed' Controller
 
 # Lights
-    Light Wave RF
-    Zigbee
-      - Lidl GU10
-      -
-    WLED
-      - QuineLED
+Light Wave RF
+
+Zigbee
+  - Lidl GU10
+
+WLED
+  - QuineLED
 
 # Wall Sockets:
-    Light Wave RF
-    VIGICA
-    - Two Socket + USB WiFi wall Socket
+Light Wave RF
+
+VIGICA
+  - Two Socket + USB WiFi wall Socket
       f/w https://esphome.io/
 
 # HVAC
-    Thermostats:
-      - Xiaomi Aqara
-    Storage Heaters:
-      - SonoffTH16
-        f/w https://esphome.io/
-    Underfloor Heating:
-      - BHT-1000 GBW
-        f/w https://github.com/fashberg/WThermostatBeca
-    Blinds:
-      - Generic RF Blinds
+Thermostats:
+  - Xiaomi Aqara
+Storage Heaters:
+  - SonoffTH16
+    f/w https://esphome.io/
+Underfloor Heating:
+  - BHT-1000 GBW
+    f/w https://github.com/fashberg/WThermostatBeca
+Blinds:
+  - Generic RF Blinds
 
 # Waterheaters
     SonoffPOWR2

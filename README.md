@@ -22,8 +22,7 @@ Matthew
   Texas Instruments LAUNCHXL-CC1352P-2  
   f/w https://www.zigbee2mqtt.io/information/flashing_via_uniflash.html
 - Z-Wave  
-  Aeotec Z-Stick  
-  *decommissioned*
+  Aeotec Z-Stick - *decommissioned*
 
 # Add-Ons
 - Appdaemon - https://github.com/hassio-addons/addon-appdaemon
@@ -86,56 +85,48 @@ Matthew
 ## WiFi
   - WLED LED
     - QuineLED
-  - VIGICA - Two Socket + USB WiFi wall Socket
+  - VIGICA - Two Socket + USB WiFi wall Socket  
     f/w https://esphome.io/
+  - SonoffTH16  
+    f/w https://esphome.io/
+  - SonoffPOWR2
+    f/w https://esphome.io/
+  - SonoffTH16  
+    f/w https://esphome.io/
+  - SonoffMINI  
+    f/w https://esphome.io/
+  - BHT-1000 GBW  
+    f/w https://github.com/fashberg/WThermostatBeca  
+
 ## RF
 - Light Wave RF
   - Light Switches
   - Wall Sockets
+- Generic RF Blinds
+
 ## Zigbee
 - IKEA
   - LEPTITER Recessed spot light, dimmable, white spectrum (T1820)
+  - TRADFRI remote control (E1524/E1810)
+  - TRADFRI motion sensor (E1525/E1745)
 - Lidl
   - Livarno Lux E14 candle CCT (HG06492B)
   - Livarno Lux E14 candle RGB (HG06106B)
   - Livarno Lux GU10 spot RGB (HG06106A)
   - Lidl GU10
-
-
-# Wall Sockets
-- WiFi
-
-# Sensors, Switch & Buttons
-- IKEA
-  - TRADFRI remote control (E1524/E1810)
-  - TRADFRI motion sensor (E1525/E1745)
 - Xiaomi
  - Aqara temperature, humidity and pressure sensor (WSDCGQ11LM)
  - Aqara door & window contact sensor (MCCGQ11LM)
  - Aqara wireless switch (WXKG11LM)
 
-# HVAC
-- Storage Heaters
-  - SonoffTH16
-  - f/w https://esphome.io/
-- Underfloor Heating
-  - BHT-1000 GBW
-  - f/w https://github.com/fashberg/WThermostatBeca
-- Blinds
-  - Generic RF Blinds
-
-# Waterheaters
-- SonoffPOWR2
-
 # Solar Installation
 ## Solax Inverters
-- X1-Hybrid SKU-SU5000E 5.Kw
-  - Evolution Ultramax Solar Panels (285w)
-  - PylonTech US3000
-- X1-Hybrid SKU-SU5000E 5Kw
-  - LG Chem EM048063P3Sx
-- X1-Air-Mini 2.5Kw
-  - decommissioned
+- X1-Hybrid SKU-SU5000E (5Kw)  
+  Evolution Ultramax Solar Panels (285w)  
+  PylonTech - US3000  
+- X1-Hybrid SKU-SU5000E (5Kw)  
+  LG Chem - EM048063P3Sx  
+- X1-Air-Mini 2.5Kw - *decommissioned*
 
 ## Solar Panel Optimization (No HA integration)
 - TIGO CCA
@@ -146,9 +137,9 @@ Matthew
 - SolaxPortal - https://www.solax-portal.com/
 - TIGO Energy - https://www.tigoenergy.com/
 ## Whole Home
-- IAMMETER - WEM3080 - https://www.iammeter.com
-- Light Wave Energy Monitor
-  - decommissioned
+- IAMMETER  
+  WEM3080 - https://www.iammeter.com
+- Light Wave Energy Monitor - *decommissioned*
 
 # Customization and setup
 I separate my config into individual yaml files or use packages

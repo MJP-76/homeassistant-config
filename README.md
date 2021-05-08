@@ -83,20 +83,30 @@ Matthew
 
 # Devices
 ## WiFi
-- QuinLED
+- QuinLED  
   f/w https://quinled.info/
 - VIGICA - Two Socket + USB WiFi wall Socket  
   f/w https://esphome.io/
+- SonoffDUAL  
+  f/w https://esphome.io/
 - SonoffTH16  
   f/w https://esphome.io/
-- SonoffPOWR2
+- SonoffPOW & POWR2  
   f/w https://esphome.io/
 - SonoffTH16  
   f/w https://esphome.io/
 - SonoffMINI  
   f/w https://esphome.io/
+- Sonofd iFan01  
+  f/w https://esphome.io/
+- Sonofd iFan01  
+  f/w https://tasmota.github.io/docs/
 - BHT-1000 GBW  
   f/w https://github.com/fashberg/WThermostatBeca  
+- Smart Life WIFI Inline Switch  
+  f/w Tuya Based
+- Smart Plugs *On/Off & Power Monitor*  
+  f/w https://esphome.io/
 
 ## RF
 - Light Wave RF  
@@ -119,6 +129,10 @@ Matthew
  - Aqara door & window contact sensor (MCCGQ11LM)
  - Aqara wireless switch (WXKG11LM)
 
+## other
+- Logitech
+  - Harmony Elite
+
 # Solar Installation
 ## Solax Inverters
 - X1-Hybrid SKU-SU5000E *(5Kw)*  
@@ -128,8 +142,7 @@ Matthew
   LG Chem - EM048063P3Sx  
 - X1-Air-Mini 2.5Kw - *decommissioned*
 
-## Solar Panel Optimization
-*(No HA integration)*
+## Solar Panel Optimization *(No HA integration)*
 - TIGO CCA
 - TIGO TS4-R-0
 
@@ -143,7 +156,7 @@ Matthew
 - Light Wave Energy Monitor - *decommissioned*
 
 # Customization and setup
-I separate my config into individual yaml files or use packages
+I mostly separate my config into individual yaml files or use packages
 
 ## /root
 Nothing special in here, stock standard HA files and individual yaml files based on my configuration.yaml

@@ -106,30 +106,34 @@ Matthew
 # Waterheaters
     SonoffPOWR2
 
-# Solar
-## Solax
-X1-Hybrid SKU-SU5000E Inverter
+#Solar Installation
+##Solax Inverters
+X1-Hybrid SKU-SU5000E 5.Kw
   - Evolution Ultramax Solar Panels (285w)
   - PylonTech US3000
 
-X1-Hybrid SKU-SU5000E Inverter
+X1-Hybrid SKU-SU5000E 5Kw
   - LG Chem
-## Solar Panel Optimization (No HA integration)
+
+X1-Air-Mini 2.5Kw
+  - decommissioned
+
+##Solar Panel Optimization (No HA integration)
 TIGO CCA
 TIGO TS4-R-0
 
-# Energy Monitoring
-## Solar:
+#Energy Monitoring
+##Solar
     SolaxPortal - https://www.solax-portal.com/
     TIGO Energy - https://www.tigoenergy.com/
-##  Whole Home:
+##Whole Home
     IAMMETER - WEM3080 - https://www.iammeter.com
 
-# Customization and setup
+#Customization and setup
 I separate my config into individual yaml files or use packages
 
-## /root
+##/root
 Nothing special in here, stock standard HA files and individual yaml files based on my configuration.yaml
 
-## /packages
+##/packages
 This is where most of my custom setup lives

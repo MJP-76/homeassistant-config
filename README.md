@@ -11,17 +11,18 @@ Hope it helps and if you have any questions, drop me an email, message on GitHub
 Matthew
 
 # HA Hardware
-- HASSIO:
+- HASSIO
   - Raspberry Pi 4B+ 8GB + USB SSD (Wired + WiFi)
   - https://github.com/home-assistant/operating-system/releases
-- RFLink 433:
+- RFLink 433
   - Arduino Mega based RFlink PCB with 433 MHz Transceiver
   - https://www.nodo-shop.nl/en/
   - f/w http://www.rflink.nl/
-- Zigbee:
+- Zigbee
   - Texas Instruments LAUNCHXL-CC1352P-2
-  - https://www.zigbee2mqtt.io/information/flashing_via_uniflash.html
-- ZWave:
+  - f/w https://www.zigbee2mqtt.io/information/flashing_via_uniflash.html
+- Z-Wave:
+  -
 
 # Add-Ons
 - Appdaemon - https://github.com/hassio-addons/addon-appdaemon
@@ -81,6 +82,8 @@ Matthew
 
 # Lights
 - Light Wave RF
+  - Light switches
+  - Wall Sockets
 - Zigbee
   - Lidl GU10
 - WLED
@@ -127,6 +130,8 @@ Matthew
 - TIGO Energy - https://www.tigoenergy.com/
 ## Whole Home
 - IAMMETER - WEM3080 - https://www.iammeter.com
+- Light Wave Energy Monitor
+  - decommissioned
 
 # Customization and setup
 I separate my config into individual yaml files or use packages

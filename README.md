@@ -1,23 +1,23 @@
 # homeassistant-config
 # HA Hardware
-  HASSIO:
+    HASSIO:
     Raspberry Pi 4B+ 8GB + USB SSD (Wired + WiFi)
       https://github.com/home-assistant/operating-system/releases
 
-  RF 433:
+    RF 433:
     RFLink
       https://www.nodo-shop.nl/en/
       f/w http://www.rflink.nl/
 
-  Zigbee:
+    Zigbee:
     Texas Instruments LAUNCHXL-CC1352P-2
       https://www.zigbee2mqtt.io/information/flashing_via_uniflash.html
 
 # Add-Ons:
     Appdaemon
-    - hadashboard
-    - hassapps-schedy - https://hass-apps.readthedocs.io/en/stable/apps/schedy/index.html
-    - octoblock - https://github.com/badguy99/octoblock
+      - hadashboard
+      - hassapps-schedy - https://hass-apps.readthedocs.io/en/stable/apps/schedy/index.html
+      - octoblock - https://github.com/badguy99/octoblock
     ESPHome - https://esphome.io/
     Grafana
     Home Assistant Google Drive Backup - https://github.com/sabeechen/hassio-google-drive-backup
@@ -34,7 +34,6 @@
     Garbage Collection
     HASS Bridge
     HACS
-      -
     iOS
     Konnected.io
     Life360
@@ -46,6 +45,30 @@
     Tuya
     Waze Travel Time
     WLED
+
+# HACS
+    Integrations
+    - BlueIris NVR
+    - Config Check
+    - Solcast
+    - Remote Home-Assistant
+    - AstroWeather
+    - Octopus Agile
+    - Camera combined
+    - Breaking Changes
+    - Anniversaries
+    - Garbage Collection
+    Frontend
+    - Garbage Collection Card
+    - power-distribution-card
+    - surveillance-card
+    - Multiple Entity Row
+    - Canary
+    - Kiosk Mode
+    - Fan Control Entity Row
+    Automation
+    - Octoblock
+    - Auto 'Fan Speed' Controller
 
 # Lights
     Light Wave RF

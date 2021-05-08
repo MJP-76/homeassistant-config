@@ -4,7 +4,8 @@ Make: Raspberry Pi 4B+ 8GB + USB SSD
 Firmware: Latest HAOS
 URL: https://github.com/home-assistant/operating-system/releases
 
-Add-Ons
+Add-Ons:
+
 Appdaemon
   - hadashboard
   - hassapps-schedy - https://hass-apps.readthedocs.io/en/stable/apps/schedy/index.html
@@ -17,7 +18,8 @@ Mosquitto broker
 SSH & Web Terminal
 zigbee2mqtt - https://www.zigbee2mqtt.io/
 
-Integrations
+Integrations:
+
 Apple TV
 BlueIris
 Cloudflare

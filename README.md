@@ -13,17 +13,17 @@ Matthew
 # HA Hardware
 - HASSIO
   - Raspberry Pi 4B+ 8GB + USB SSD (Wired + WiFi)
-  - https://github.com/home-assistant/operating-system/releases
+    https://github.com/home-assistant/operating-system/releases
 - RFLink 433
   - Arduino Mega based RFlink PCB with 433 MHz Transceiver
-  - https://www.nodo-shop.nl/en/
-  - f/w http://www.rflink.nl/
+    https://www.nodo-shop.nl/en/
+    f/w http://www.rflink.nl/
 - Zigbee
   - Texas Instruments LAUNCHXL-CC1352P-2
-  - f/w https://www.zigbee2mqtt.io/information/flashing_via_uniflash.html
+    f/w https://www.zigbee2mqtt.io/information/flashing_via_uniflash.html
 - Z-Wave
   - Aeotec Z-Stick
-  - decommissioned
+    decommissioned
 
 # Add-Ons
 - Appdaemon - https://github.com/hassio-addons/addon-appdaemon
@@ -82,31 +82,46 @@ Matthew
   - Octoblock
   - Auto 'Fan Speed' Controller
 
-# Lights
+# Devices
+## WiFi
+  - WLED LED
+    - QuineLED
+  - VIGICA - Two Socket + USB WiFi wall Socket
+    f/w https://esphome.io/
+## RF
 - Light Wave RF
-  - Light switches
+  - Light Switches
   - Wall Sockets
-- Zigbee
+## Zigbee
+- IKEA
+  - LEPTITER Recessed spot light, dimmable, white spectrum (T1820)
+- Lidl
+  - Livarno Lux E14 candle CCT (HG06492B)
+  - Livarno Lux E14 candle RGB (HG06106B)
+  - Livarno Lux GU10 spot RGB (HG06106A)
   - Lidl GU10
-- WLED
-  - QuineLED
+
 
 # Wall Sockets
-- Light Wave RF
 - WiFi
-  - VIGICA - Two Socket + USB WiFi wall Socket
-  - f/w https://esphome.io/
+
+# Sensors, Switch & Buttons
+- IKEA
+  - TRADFRI remote control (E1524/E1810)
+  - TRADFRI motion sensor (E1525/E1745)
+- Xiaomi
+ - Aqara temperature, humidity and pressure sensor (WSDCGQ11LM)
+ - Aqara door & window contact sensor (MCCGQ11LM)
+ - Aqara wireless switch (WXKG11LM)
 
 # HVAC
-- Thermostats:
-  - Xiaomi Aqara
-- Storage Heaters:
+- Storage Heaters
   - SonoffTH16
   - f/w https://esphome.io/
-- Underfloor Heating:
+- Underfloor Heating
   - BHT-1000 GBW
   - f/w https://github.com/fashberg/WThermostatBeca
-- Blinds:
+- Blinds
   - Generic RF Blinds
 
 # Waterheaters

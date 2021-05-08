@@ -126,8 +126,8 @@ Matthew
 # Customization and setup
 I separate my config into individual yaml files or use packages
 
-/root
-    Nothing special in here, stock standard HA files and individual yaml files based on my configuration.yaml
+## /root
+Nothing special in here, stock standard HA files and individual yaml files based on my configuration.yaml
 
-/packages
-    This is where most of my custom setup lives
+## /packages
+This is where most of my custom setup lives

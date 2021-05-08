@@ -83,8 +83,8 @@ Matthew
 
 # Devices
 ## WiFi
-- QuinLED  
-  f/w https://quinled.info/
+- WLED / QuinLED  
+  f/w https://github.com/Aircoookie/WLED & https://quinled.info/
 - VIGICA - Two Socket + USB WiFi wall Socket  
   f/w https://esphome.io/
 - SonoffDUAL  
@@ -107,7 +107,9 @@ Matthew
   f/w Tuya Based
 - Smart Plugs *On/Off & Power Monitor*  
   f/w https://esphome.io/
-
+- Konnected Alarm Panel  
+  f/w https://konnected.io
+- SONOS Audio System
 ## RF
 - Light Wave RF  
   - Light Switches
@@ -129,7 +131,7 @@ Matthew
  - Aqara door & window contact sensor (MCCGQ11LM)
  - Aqara wireless switch (WXKG11LM)
 
-## other
+## Other
 - Logitech
   - Harmony Elite
 

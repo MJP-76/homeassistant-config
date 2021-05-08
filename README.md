@@ -14,15 +14,16 @@ Matthew
 - HASSIO:
   - Raspberry Pi 4B+ 8GB + USB SSD (Wired + WiFi)
   - https://github.com/home-assistant/operating-system/releases
-- RF 433:
-  - RFLink
+- RFLink 433:
+  - Arduino Mega based RFlink PCB with 433 MHz Transceiver
   - https://www.nodo-shop.nl/en/
   - f/w http://www.rflink.nl/
 - Zigbee:
   - Texas Instruments LAUNCHXL-CC1352P-2
   - https://www.zigbee2mqtt.io/information/flashing_via_uniflash.html
+- ZWave:
 
-# Add-Ons:
+# Add-Ons
 - Appdaemon - https://github.com/hassio-addons/addon-appdaemon
   - hadashboard - https://appdaemon.readthedocs.io/en/latest/DASHBOARD_INSTALL.html
   - hassapps-schedy - https://hass-apps.readthedocs.io/en/stable/apps/schedy/index.html
@@ -85,7 +86,7 @@ Matthew
 - WLED
   - QuineLED
 
-# Wall Sockets:
+# Wall Sockets
 - Light Wave RF
 - WiFi
   - VIGICA - Two Socket + USB WiFi wall Socket

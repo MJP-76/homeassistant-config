@@ -14,12 +14,10 @@ Matthew
 - HASSIO:
   - Raspberry Pi 4B+ 8GB + USB SSD (Wired + WiFi)
   - https://github.com/home-assistant/operating-system/releases
-
 - RF 433:
   - RFLink
   - https://www.nodo-shop.nl/en/
   - f/w http://www.rflink.nl/
-
 - Zigbee:
   - Texas Instruments LAUNCHXL-CC1352P-2
   - https://www.zigbee2mqtt.io/information/flashing_via_uniflash.html
@@ -82,58 +80,52 @@ Matthew
 
 # Lights
 - Light Wave RF
-
 - Zigbee
   - Lidl GU10
-
 - WLED
   - QuineLED
 
 # Wall Sockets:
 - Light Wave RF
-
-- VIGICA
-  - Two Socket + USB WiFi wall Socket
-    f/w https://esphome.io/
+- WiFi
+  - VIGICA - Two Socket + USB WiFi wall Socket
+  - f/w https://esphome.io/
 
 # HVAC
-Thermostats:
+- Thermostats:
   - Xiaomi Aqara
-Storage Heaters:
+- Storage Heaters:
   - SonoffTH16
-    f/w https://esphome.io/
-Underfloor Heating:
+  - f/w https://esphome.io/
+- Underfloor Heating:
   - BHT-1000 GBW
-    f/w https://github.com/fashberg/WThermostatBeca
-Blinds:
+  - f/w https://github.com/fashberg/WThermostatBeca
+- Blinds:
   - Generic RF Blinds
 
 # Waterheaters
-    SonoffPOWR2
+- SonoffPOWR2
 
 # Solar Installation
 ## Solax Inverters
-X1-Hybrid SKU-SU5000E 5.Kw
+- X1-Hybrid SKU-SU5000E 5.Kw
   - Evolution Ultramax Solar Panels (285w)
   - PylonTech US3000
-
-X1-Hybrid SKU-SU5000E 5Kw
+- X1-Hybrid SKU-SU5000E 5Kw
   - LG Chem EM048063P3Sx
-
-X1-Air-Mini 2.5Kw
+- X1-Air-Mini 2.5Kw
   - decommissioned
 
 ## Solar Panel Optimization (No HA integration)
-TIGO CCA
-TIGO TS4-R-0
+- TIGO CCA
+- TIGO TS4-R-0
 
 # Energy Monitoring
 ## Solar
-SolaxPortal - https://www.solax-portal.com/
-
-TIGO Energy - https://www.tigoenergy.com/
+- SolaxPortal - https://www.solax-portal.com/
+- TIGO Energy - https://www.tigoenergy.com/
 ## Whole Home
-IAMMETER - WEM3080 - https://www.iammeter.com
+- IAMMETER - WEM3080 - https://www.iammeter.com
 
 # Customization and setup
 I separate my config into individual yaml files or use packages

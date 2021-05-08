@@ -1,8 +1,8 @@
 # homeassistant-config
 # Host
-    Make: Raspberry Pi 4B+ 8GB + USB SSD
-    Firmware: Latest HAOS
-    URL: https://github.com/home-assistant/operating-system/releases
+  Make: Raspberry Pi 4B+ 8GB + USB SSD
+  Firmware: Latest HAOS
+  URL: https://github.com/home-assistant/operating-system/releases
 
 # Add-Ons:
 - Appdaemon

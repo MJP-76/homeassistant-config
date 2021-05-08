@@ -1,23 +1,23 @@
-homeassistant-config
-  Host
+#homeassistant-config
+#Host
     Make: Raspberry Pi 4B+ 8GB + USB SSD
     Firmware: Latest HAOS
     URL: https://github.com/home-assistant/operating-system/releases
 
-Add-Ons:
-  Appdaemon
-    - hadashboard
-    - hassapps-schedy - https://hass-apps.readthedocs.io/en/stable/apps/schedy/index.html
-    - octoblock - https://github.com/badguy99/octoblock
-  ESPHome - https://esphome.io/
-  Grafana
-  Home Assistant Google Drive Backup - https://github.com/sabeechen/hassio-google-drive-backup
-  InfluxDB
-  Mosquitto broker
-  SSH & Web Terminal
-  zigbee2mqtt - https://www.zigbee2mqtt.io/
+#Add-Ons:
+- Appdaemon
+  - hadashboard
+  - hassapps-schedy - https://hass-apps.readthedocs.io/en/stable/apps/schedy/index.html
+  - octoblock - https://github.com/badguy99/octoblock
+- ESPHome - https://esphome.io/
+- Grafana
+- Home Assistant Google Drive Backup - https://github.com/sabeechen/hassio-google-drive-backup
+- InfluxDB
+- Mosquitto broker
+- SSH & Web Terminal
+- zigbee2mqtt - https://www.zigbee2mqtt.io/
 
-Integrations
+#Integrations
   Apple TV
   BlueIris
   Cloudflare

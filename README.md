@@ -1,5 +1,5 @@
 # homeassistant-config
-This is my hopefully current Home Assistant config
+This should be my 'mostly' up to date Home Assistant config
 
 I will try to update on a regular basis but as more and more config moves to integrations and are setup/configured
 via the GUI I will be relying on backups for recovery rather than GitHub
@@ -123,7 +123,10 @@ Matthew
     Whole Home:
       - IAMMETER - WEM3080 - https://www.iammeter.com
 
-Now for my customization and setup. I separate my config into individual yaml files or use packages
-# /root
+# Customization and setup
+I separate my config into individual yaml files or use packages
+
+/root
 Nothing special in here, stock standard HA files and individual yaml files based on my configuration.yaml
- 
+
+/packages

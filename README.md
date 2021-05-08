@@ -46,6 +46,7 @@ Matthew
 - Garbage Collection
 - HASS Bridge
 - HACS (Home Assistant Community Store)
+  - see HACS subtopic
 - iOS
 - Konnected.io
 - Life360
@@ -57,7 +58,7 @@ Matthew
 - Waze Travel Time
 - WLED
 
-# HACS (Home Assistant Community Store)
+# HACS
 - Integrations
   - BlueIris NVR
   - Config Check

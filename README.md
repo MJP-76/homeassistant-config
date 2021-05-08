@@ -12,17 +12,17 @@ Matthew
 
 # HA Hardware
 - HASSIO:
-  Raspberry Pi 4B+ 8GB + USB SSD (Wired + WiFi)
-  https://github.com/home-assistant/operating-system/releases
+  - Raspberry Pi 4B+ 8GB + USB SSD (Wired + WiFi)
+  - https://github.com/home-assistant/operating-system/releases
 
 - RF 433:
-  RFLink
-  https://www.nodo-shop.nl/en/
-  f/w http://www.rflink.nl/
+  - RFLink
+  - https://www.nodo-shop.nl/en/
+  - f/w http://www.rflink.nl/
 
 - Zigbee:
-  Texas Instruments LAUNCHXL-CC1352P-2
-  https://www.zigbee2mqtt.io/information/flashing_via_uniflash.html
+  - Texas Instruments LAUNCHXL-CC1352P-2
+  - https://www.zigbee2mqtt.io/information/flashing_via_uniflash.html
 
 # Add-Ons:
 - Appdaemon - https://github.com/hassio-addons/addon-appdaemon

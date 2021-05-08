@@ -1,31 +1,32 @@
 # homeassistant-config
 # HA Hardware
-  - Host
-    - Make: Raspberry Pi 4B+ 8GB + USB SSD
-    - Firmware: Latest HAOS
-    - URL: https://github.com/home-assistant/operating-system/releases
-  - RF
-    - Make: RFLink 433
-    - URL: https://www.nodo-shop.nl/en/
-    - Firmware: RFLink firmware R48
-    - URL: http://www.rflink.nl/
+  - HASSIO
+    - Make: Raspberry Pi 4B+ 8GB + USB SSD (Wired + WiFi)
+    - https://github.com/home-assistant/operating-system/releases
+  - RF 433
+    - https://www.nodo-shop.nl/en/
+    - RFLink firmware R48 - http://www.rflink.nl/
   - Zigbee
-    - Make:
-    - Firmware:
-    - URL:
+    - Texas Instruments LAUNCHXL-CC1352P-2
+    - https://www.zigbee2mqtt.io/information/flashing_via_uniflash.html
 
 # Add-Ons:
     Appdaemon
     - hadashboard
-    - hassapps-schedy - https://hass-apps.readthedocs.io/en/stable/apps/schedy/index.html
-    - octoblock - https://github.com/badguy99/octoblock
-    ESPHome - https://esphome.io/
+    - hassapps-schedy
+      - https://hass-apps.readthedocs.io/en/stable/apps/schedy/index.html
+    - octoblock
+      - https://github.com/badguy99/octoblock
+    ESPHome
+      - https://esphome.io/
     Grafana
-    Home Assistant Google Drive Backup - https://github.com/sabeechen/hassio-google-drive-backup
+    Home Assistant Google Drive Backup
+      - https://github.com/sabeechen/hassio-google-drive-backup
     InfluxDB
     Mosquitto broker
     SSH & Web Terminal
-    zigbee2mqtt - https://www.zigbee2mqtt.io/
+    zigbee2mqtt
+      - https://www.zigbee2mqtt.io/
 
 # Integrations
     Apple TV

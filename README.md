@@ -59,7 +59,7 @@ Matthew
 - WLED <br />
 
 # HACS
-- Integrations <br />  
+- Integrations <br />
     BlueIris NVR <br />
     Config Check  <br />
     Solcast <br />

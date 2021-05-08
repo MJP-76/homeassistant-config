@@ -49,39 +49,27 @@
     Waze Travel Time
     WLED
 
+# Lights
+  - Light Wave RF
+  - Zigbee
+    - Lidl GU10
+    -
+  - WLED
+    - QuineLED
 
-Lights
-Make:
-Firmware:
-URL:
+# Wall Sockets:
 
-Wall Sockets:
-Make:
-Firmware:
-URL:
-
-Blinds:
-RF Blinds
-Make:
-Firmware:
-URL:
-
-HVAC
-Thermostats
-Make: Xiaomi Aqara Zigbee
-Firmware:
-URL:
-
-Storage Heaters:
-Make: SonoffTH16 running
-Firmware: ESPHome
-URL:
-
-Undefloor Heating:
-Make: BHT-1000 GBW
-Firmware:
-URL:
-
+# HVAC
+  Thermostats:
+    - Xiaomi Aqara Zigbee
+  Storage Heaters:
+    - SonoffTH16 running
+      - ESPHome
+  Underfloor Heating:
+    - BHT-1000 GBW
+      - https://github.com/fashberg/WThermostatBeca
+  Blinds:
+    - Generic RF Blinds
 
 Waterheaters
 Make: 2 x SonoffPOWR2

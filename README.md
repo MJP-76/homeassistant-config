@@ -12,75 +12,75 @@ Matthew
 
 # HA Hardware
 - HASSIO  
-  Raspberry Pi 4B+ 8GB + USB SSD (Wired + WiFi) <br />
-  https://github.com/home-assistant/operating-system/releases <br />
-- RFLink 433 <br />
-  Arduino Mega based RFlink PCB with 433 MHz Transceiver <br />
-  https://www.nodo-shop.nl/en/ <br />
-  f/w http://www.rflink.nl/ <br />
-- Zigbee <br />
-  Texas Instruments LAUNCHXL-CC1352P-2 <br />
-  f/w https://www.zigbee2mqtt.io/information/flashing_via_uniflash.html <br />
-- Z-Wave <br />
-  Aeotec Z-Stick <br />
-  *decommissioned* <br />
+  Raspberry Pi 4B+ 8GB + USB SSD (Wired + WiFi)  
+  https://github.com/home-assistant/operating-system/releases
+- RFLink 433  
+  Arduino Mega based RFlink PCB with 433 MHz Transceiver  
+  https://www.nodo-shop.nl/en/  
+  f/w http://www.rflink.nl/
+- Zigbee  
+  Texas Instruments LAUNCHXL-CC1352P-2  
+  f/w https://www.zigbee2mqtt.io/information/flashing_via_uniflash.html
+- Z-Wave  
+  Aeotec Z-Stick  
+  *decommissioned*
 
 # Add-Ons
-- Appdaemon - https://github.com/hassio-addons/addon-appdaemon <br />
-    hadashboard - https://appdaemon.readthedocs.io/en/latest/DASHBOARD_INSTALL.html <br />
-    hassapps-schedy - https://hass-apps.readthedocs.io/en/stable/apps/schedy/index.html <br />
-    octoblock - https://github.com/badguy99/octoblock <br />
-- ESPHome - https://esphome.io/ <br />
-- Grafana <br />
-- Home Assistant Google Drive Backup - https://github.com/sabeechen/hassio-google-drive-backup <br />
-- InfluxDB <br />
-- Mosquitto broker <br />
-- SSH & Web Terminal <br />
-- zigbee2mqtt - https://www.zigbee2mqtt.io/ <br />
+- Appdaemon - https://github.com/hassio-addons/addon-appdaemon
+  - hadashboard - https://appdaemon.readthedocs.io/en/latest/DASHBOARD_INSTALL.html
+  - hassapps-schedy - https://hass-apps.readthedocs.io/en/stable/apps/schedy/index.html
+  - octoblock - https://github.com/badguy99/octoblock
+- ESPHome - https://esphome.io/
+- Grafana
+- Home Assistant Google Drive Backup - https://github.com/sabeechen/hassio-google-drive-backup
+- InfluxDB
+- Mosquitto broker
+- SSH & Web Terminal
+- zigbee2mqtt - https://www.zigbee2mqtt.io/
 
 # Integrations
-- Apple TV <br />
-- BlueIris <br />
-- Cloudflare <br />
-- ESPHome <br />
-- Garbage Collection <br />
-- HASS Bridge <br />
-- HACS (Home Assistant Community Store) <br />
-    see HACS subtopic <br />
-- iOS <br />
-- Konnected.io <br />
-- Life360 <br />
-- Mobile App <br />
-- Mosquitto broker <br />
-- SONOS <br />
-- Tasmota <br />
-- Tuya <br />
-- Waze Travel Time <br />
-- WLED <br />
+- Apple TV
+- BlueIris
+- Cloudflare
+- ESPHome
+- Garbage Collection
+- HASS Bridge
+- HACS (Home Assistant Community Store)
+  - see HACS subtopic
+- iOS
+- Konnected.io
+- Life360
+- Mobile App
+- Mosquitto broker
+- SONOS
+- Tasmota
+- Tuya
+- Waze Travel Time
+- WLED
 
 # HACS
-- Integrations <br />
-    BlueIris NVR <br />
-    Config Check  <br />
-    Solcast <br />
-    Remote Home-Assistant <br />
-    AstroWeather <br />
-    Octopus Agile <br />
-    Camera combined <br />
-    Breaking Changes <br />
-    Anniversaries <br />
-    Garbage Collection <br />
-- Frontend <br />
-    Garbage Collection Card <br />
-    power-distribution-card <br />
-    surveillance-card <br />
-    Multiple Entity Row <br />
-    Canary <br />
-    Kiosk Mode <br />
-    Fan Control Entity Row <br />
-- Automation <br />
-    Octoblock <br />
-    Auto 'Fan Speed' Controller <br />
+- Integrations
+  - BlueIris NVR
+  - Config Check
+  - Solcast
+  - Remote Home-Assistant
+  - AstroWeather
+  - Octopus Agile
+  - Camera combined
+  - Breaking Changes
+  - Anniversaries
+  - Garbage Collection
+- Frontend
+  - Garbage Collection Card
+  - power-distribution-card
+  - surveillance-card
+  - Multiple Entity Row
+  - Canary
+  - Kiosk Mode
+  - Fan Control Entity Row
+- Automation
+  - Octoblock
+  - Auto 'Fan Speed' Controller
 
 # Devices
 ## WiFi

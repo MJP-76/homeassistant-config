@@ -13,7 +13,7 @@ Matthew
 # HA Hardware
 - HASSIO
   - Raspberry Pi 4B+ 8GB + USB SSD (Wired + WiFi)
-  - https://github.com/home-assistant/operating-system/releases
+  `<link>` : <https://github.com/home-assistant/operating-system/releases>
 - RFLink 433
   - Arduino Mega based RFlink PCB with 433 MHz Transceiver
   * https://www.nodo-shop.nl/en/

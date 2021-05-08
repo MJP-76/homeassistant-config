@@ -107,21 +107,23 @@ Matthew
     SonoffPOWR2
 
 # Solar
-    Solax X1-Hybrid SKU-SU5000E Inverter
-      - Evolution Ultramax Solar Panels (285w)
-      - PylonTech US3000
-    Solax X1-Hybrid SKU-SU5000E Inverter
-      - LG Chem
-    Solar Panel Optimization (No HA integration)
-      - TIGO CCA
-      - TIGO TS4-R-0
+## Solax
+X1-Hybrid SKU-SU5000E Inverter
+  - Evolution Ultramax Solar Panels (285w)
+  - PylonTech US3000
+
+X1-Hybrid SKU-SU5000E Inverter
+  - LG Chem
+## Solar Panel Optimization (No HA integration)
+  TIGO CCA
+  TIGO TS4-R-0
 
 # Energy Monitoring
-    Solar:
-      - SolaxPortal - https://www.solax-portal.com/
-      - TIGO Energy - https://www.tigoenergy.com/
-    Whole Home:
-      - IAMMETER - WEM3080 - https://www.iammeter.com
+## Solar:
+   SolaxPortal - https://www.solax-portal.com/
+   TIGO Energy - https://www.tigoenergy.com/
+##  Whole Home:
+   IAMMETER - WEM3080 - https://www.iammeter.com
 
 # Customization and setup
 I separate my config into individual yaml files or use packages

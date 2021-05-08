@@ -3,10 +3,12 @@
     HASSIO:
     Raspberry Pi 4B+ 8GB + USB SSD (Wired + WiFi)
       https://github.com/home-assistant/operating-system/releases
+
     RF 433:
-    RF Link
+    RFLink
       https://www.nodo-shop.nl/en/
       f/w http://www.rflink.nl/
+
     Zigbee:
     Texas Instruments LAUNCHXL-CC1352P-2
       https://www.zigbee2mqtt.io/information/flashing_via_uniflash.html

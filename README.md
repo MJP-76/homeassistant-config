@@ -11,28 +11,28 @@ Hope it helps and if you have any questions, drop me an email, message on GitHub
 Matthew
 
 # HA Hardware
-- HASSIO
-  - Raspberry Pi 4B+ 8GB + USB SSD (Wired + WiFi)  
-    https://github.com/home-assistant/operating-system/releases
-- RFLink 433
-  - Arduino Mega based RFlink PCB with 433 MHz Transceiver  
-    https://www.nodo-shop.nl/en/  
-    f/w http://www.rflink.nl/
-- Zigbee
-  - Texas Instruments LAUNCHXL-CC1352P-2  
-    f/w https://www.zigbee2mqtt.io/information/flashing_via_uniflash.html
-- Z-Wave
-  - Aeotec Z-Stick  
-    *decommissioned*
+- HASSIO  
+  Raspberry Pi 4B+ 8GB + USB SSD (Wired + WiFi)  
+  https://github.com/home-assistant/operating-system/releases
+- RFLink 433  
+  Arduino Mega based RFlink PCB with 433 MHz Transceiver  
+  https://www.nodo-shop.nl/en/  
+  f/w http://www.rflink.nl/
+- Zigbee  
+  Texas Instruments LAUNCHXL-CC1352P-2  
+  f/w https://www.zigbee2mqtt.io/information/flashing_via_uniflash.html
+- Z-Wave  
+  Aeotec Z-Stick  
+  *decommissioned*
 
 # Add-Ons
-- Appdaemon `<link>` : <https://github.com/hassio-addons/addon-appdaemon>
-  - hadashboard `<link>` : <https://appdaemon.readthedocs.io/en/latest/DASHBOARD_INSTALL.html>
-  - hassapps-schedy `<link>` : <https://hass-apps.readthedocs.io/en/stable/apps/schedy/index.html>
-  - octoblock `<link>` : <https://github.com/badguy99/octoblock>
-- ESPHome `<link>` : <https://esphome.io/>
+- Appdaemon - https://github.com/hassio-addons/addon-appdaemon
+  - hadashboard - https://appdaemon.readthedocs.io/en/latest/DASHBOARD_INSTALL.html
+  - hassapps-schedy - https://hass-apps.readthedocs.io/en/stable/apps/schedy/index.html
+  - octoblock - https://github.com/badguy99/octoblock
+- ESPHome - https://esphome.io/
 - Grafana
-- Home Assistant Google Drive Backup `<link>` : <https://github.com/sabeechen/hassio-google-drive-backup>
+- Home Assistant Google Drive Backup - https://github.com/sabeechen/hassio-google-drive-backup
 - InfluxDB
 - Mosquitto broker
 - SSH & Web Terminal

@@ -11,18 +11,18 @@ Hope it helps and if you have any questions, drop me an email, message on GitHub
 Matthew
 
 # HA Hardware
-    HASSIO:
-    Raspberry Pi 4B+ 8GB + USB SSD (Wired + WiFi)
-      https://github.com/home-assistant/operating-system/releases
+- HASSIO:
+  Raspberry Pi 4B+ 8GB + USB SSD (Wired + WiFi)
+  https://github.com/home-assistant/operating-system/releases
 
-    RF 433:
-    RFLink
-      https://www.nodo-shop.nl/en/
-      f/w http://www.rflink.nl/
+- RF 433:
+  RFLink
+  https://www.nodo-shop.nl/en/
+  f/w http://www.rflink.nl/
 
-    Zigbee:
-    Texas Instruments LAUNCHXL-CC1352P-2
-      https://www.zigbee2mqtt.io/information/flashing_via_uniflash.html
+- Zigbee:
+  Texas Instruments LAUNCHXL-CC1352P-2
+  https://www.zigbee2mqtt.io/information/flashing_via_uniflash.html
 
 # Add-Ons:
 - Appdaemon - https://github.com/hassio-addons/addon-appdaemon
@@ -57,44 +57,44 @@ Matthew
 - WLED
 
 # HACS (Home Assistant Community Store)
-    Integrations
-    - BlueIris NVR
-    - Config Check
-    - Solcast
-    - Remote Home-Assistant
-    - AstroWeather
-    - Octopus Agile
-    - Camera combined
-    - Breaking Changes
-    - Anniversaries
-    - Garbage Collection
-    Frontend
-    - Garbage Collection Card
-    - power-distribution-card
-    - surveillance-card
-    - Multiple Entity Row
-    - Canary
-    - Kiosk Mode
-    - Fan Control Entity Row
-    Automation
-    - Octoblock
-    - Auto 'Fan Speed' Controller
+- Integrations
+  - BlueIris NVR
+  - Config Check
+  - Solcast
+  - Remote Home-Assistant
+  - AstroWeather
+  - Octopus Agile
+  - Camera combined
+  - Breaking Changes
+  - Anniversaries
+  - Garbage Collection
+- Frontend
+  - Garbage Collection Card
+  - power-distribution-card
+  - surveillance-card
+  - Multiple Entity Row
+  - Canary
+  - Kiosk Mode
+  - Fan Control Entity Row
+- Automation
+  - Octoblock
+  - Auto 'Fan Speed' Controller
 
 # Lights
-Light Wave RF
+- Light Wave RF
 
-Zigbee
+- Zigbee
   - Lidl GU10
 
-WLED
+- WLED
   - QuineLED
 
 # Wall Sockets:
-Light Wave RF
+- Light Wave RF
 
-VIGICA
+- VIGICA
   - Two Socket + USB WiFi wall Socket
-      f/w https://esphome.io/
+    f/w https://esphome.io/
 
 # HVAC
 Thermostats:

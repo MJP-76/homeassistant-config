@@ -33,11 +33,10 @@
     ESPHome
     Garbage Collection
     HASS Bridge
-    HACS
+    HACS (Home Assistant Community Store)
     iOS
     Konnected.io
     Life360
-    Home
     Mobile App
     Mosquitto broker
     SONOS
@@ -46,7 +45,7 @@
     Waze Travel Time
     WLED
 
-# HACS
+# HACS (Home Assistant Community Store)
     Integrations
     - BlueIris NVR
     - Config Check

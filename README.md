@@ -108,15 +108,15 @@ Matthew
 
 # Solar
 ## Solax
-    X1-Hybrid SKU-SU5000E Inverter
-    - Evolution Ultramax Solar Panels (285w)
-    - PylonTech US3000
+X1-Hybrid SKU-SU5000E Inverter
+  - Evolution Ultramax Solar Panels (285w)
+  - PylonTech US3000
 
-    X1-Hybrid SKU-SU5000E Inverter
-    - LG Chem
+X1-Hybrid SKU-SU5000E Inverter
+  - LG Chem
 ## Solar Panel Optimization (No HA integration)
-    TIGO CCA
-    TIGO TS4-R-0
+TIGO CCA
+TIGO TS4-R-0
 
 # Energy Monitoring
 ## Solar:

@@ -1,1 +1,30 @@
+# An * ensures that everything will be ignored.
+*
+# You can whitelist files/folders with !, these will not be ignored.
+!*.yaml
+!.gitignore
+!*.md
+
+# Ignore folders.
+_Archive
+_Junker
+.cloud
+.storage
+custom_components
+panels
+ssh
+themes
+tts
+www
+zigbee2mqtt
+
+# Ensure these YAML files are ignored, otherwise your secret data/credentials will leak.
+ip_bans.yaml
 secrets.yaml
+konnected.yaml
+alarm.yaml
+alarm.html
+*.db
+*.log
+*.shm
+*.wal

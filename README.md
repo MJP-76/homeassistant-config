@@ -1,10 +1,10 @@
-#homeassistant-config
-#Host
+# homeassistant-config
+# Host
     Make: Raspberry Pi 4B+ 8GB + USB SSD
     Firmware: Latest HAOS
     URL: https://github.com/home-assistant/operating-system/releases
 
-#Add-Ons:
+# Add-Ons:
 - Appdaemon
   - hadashboard
   - hassapps-schedy - https://hass-apps.readthedocs.io/en/stable/apps/schedy/index.html
@@ -17,26 +17,26 @@
 - SSH & Web Terminal
 - zigbee2mqtt - https://www.zigbee2mqtt.io/
 
-#Integrations
-  Apple TV
-  BlueIris
-  Cloudflare
-  ESPHome
-  Garbage Collection
-  HASS Bridge
-  HACS
+# Integrations
+- Apple TV
+- BlueIris
+- Cloudflare
+- ESPHome
+- Garbage Collection
+- HASS Bridge
+- HACS
     -
-  iOS
-  Konnected.io
-  Life360
-  Home
-  Mobile App
-  Mosquitto broker
-  SONOS
-  Tasmota
-  Tuya
-  Waze Travel Time
-  WLED
+- iOS
+- Konnected.io
+- Life360
+- Home
+- Mobile App
+- Mosquitto broker
+- SONOS
+- Tasmota
+- Tuya
+- Waze Travel Time
+- WLED
 
 RF
 Make: RFLink 433

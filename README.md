@@ -1,18 +1,18 @@
 # homeassistant-config
 # HA Hardware
   - Host
-      Make: Raspberry Pi 4B+ 8GB + USB SSD
-      Firmware: Latest HAOS
-      URL: https://github.com/home-assistant/operating-system/releases
+    - Make: Raspberry Pi 4B+ 8GB + USB SSD
+    - Firmware: Latest HAOS
+    - URL: https://github.com/home-assistant/operating-system/releases
   - RF
-      Make: RFLink 433
-      URL: https://www.nodo-shop.nl/en/
-      Firmware: RFLink firmware R48
-      URL: http://www.rflink.nl/
+    - Make: RFLink 433
+    - URL: https://www.nodo-shop.nl/en/
+    - Firmware: RFLink firmware R48
+    - URL: http://www.rflink.nl/
   - Zigbee
-      Make:
-      Firmware:
-      URL:
+    - Make:
+    - Firmware:
+    - URL:
 
 # Add-Ons:
     Appdaemon

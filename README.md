@@ -64,10 +64,11 @@
     Thermostats:
       - Xiaomi Aqara Zigbee
     Storage Heaters:
-      - SonoffTH16 running
-      - ESPHome
+      - SonoffTH16
+        f/w https://esphome.io/
     Underfloor Heating:
-      - BHT-1000 GBW - https://github.com/fashberg/WThermostatBeca
+      - BHT-1000 GBW
+        f/w https://github.com/fashberg/WThermostatBeca
     Blinds:
       - Generic RF Blinds
 
@@ -75,16 +76,18 @@
     SonoffPOWR2
 
 # Solar
-    Inverter1
-      - Solax X1-Hybrid SKU-SU5000E
+    Solax X1-Hybrid SKU-SU5000E Inverter
+      - Evolution Ultramax Solar Panels (285w)
       - PylonTech US3000
+    Solax X1-Hybrid SKU-SU5000E Inverter
       - LG Chem
-    Inverter2
-      - Solax X1-Hybrid SKU-SU5000E
-      - PylonTech US3000
-      - LG Chem
-    PV Panels
-      -
-    Optimization
-      No integration
-      - TIGO
+    Solar Panel Optimization (No HA integration)
+      - TIGO CCA
+      - TIGO TS4-R-0
+
+# Energy Monitoring
+    Solar:
+      - SolaxPortal - https://www.solax-portal.com/
+      - TIGO Energy - https://www.tigoenergy.com/
+    Whole Home:
+      - IAMMETER - WEM3080 - https://www.iammeter.com

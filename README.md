@@ -128,6 +128,7 @@ TIGO TS4-R-0
 # Energy Monitoring
 ## Solar
 SolaxPortal - https://www.solax-portal.com/
+
 TIGO Energy - https://www.tigoenergy.com/
 ## Whole Home
 IAMMETER - WEM3080 - https://www.iammeter.com

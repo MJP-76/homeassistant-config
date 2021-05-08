@@ -1,4 +1,15 @@
 # homeassistant-config
+This is my hopefully current Home Assistant config
+
+I will try to update on a regular basis but as more and more config moves to integrations and are setup/configured
+via the GUI I will be relying on backups for recovery rather than GitHub
+
+I have tried to remove sensitive add-on/integrations/config for obvious reasons but please let me know if you find anything ;)
+
+Hope it helps and if you have any questions, drop me an email, message on GitHub or post an issue and will try to reply
+
+Matthew
+
 # HA Hardware
     HASSIO:
     Raspberry Pi 4B+ 8GB + USB SSD (Wired + WiFi)
@@ -14,8 +25,8 @@
       https://www.zigbee2mqtt.io/information/flashing_via_uniflash.html
 
 # Add-Ons:
-    Appdaemon
-      - hadashboard
+    Appdaemon - https://github.com/hassio-addons/addon-appdaemon
+      - hadashboard - https://appdaemon.readthedocs.io/en/latest/DASHBOARD_INSTALL.html
       - hassapps-schedy - https://hass-apps.readthedocs.io/en/stable/apps/schedy/index.html
       - octoblock - https://github.com/badguy99/octoblock
     ESPHome - https://esphome.io/
@@ -111,3 +122,8 @@
       - TIGO Energy - https://www.tigoenergy.com/
     Whole Home:
       - IAMMETER - WEM3080 - https://www.iammeter.com
+
+Now for my customization and setup. I separate my config into individual yaml files or use packages
+# /root
+Nothing special in here, stock standard HA files and individual yaml files based on my configuration.yaml
+ 

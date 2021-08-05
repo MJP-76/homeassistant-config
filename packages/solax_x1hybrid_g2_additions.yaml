@@ -1,0 +1,470 @@
+input_number:
+# Creates an input_number.battery_charge_price that can be set to the
+# required p/kWh to turn on/off forcecharge charge of the Battery
+  battery_charge_price:
+    icon: mdi:cash
+    name: Battery Charge p/kWh
+#    initial: 9  #Initial Charge Price to charge at
+    min: 0
+    max: 25  #Max Octopus Price to charge at
+    step: 0.5
+
+# Based on SK-SU5000E & Pylontech US3000
+  battery_min_energy:
+    name: "Battery Min Energy Level %"
+#    initial: 20 #Charger/Battery dependant # If set, Homeassistant will revert to this on reboot
+    min: 5 #Charger/Battery dependant
+#    min: 10 #Charger/Battery dependant
+    max: 95
+##    max: 100
+    step: 5
+
+  house_battery_charge:
+    icon: mdi:battery-plus
+    name: Battery Charge A
+    initial: 50  #Charger/Battery dependant
+    min: 0
+    max: 50  #Charger/Battery dependant
+    step: 1
+
+  house_battery_discharge:
+    name: Battery Disharge A
+    icon: mdi:battery-minus
+    initial: 50 #Charger/Battery dependant
+    min: 0
+    max: 50 #Charger/Battery dependant
+    step: 1
+
+input_boolean:
+  battery_backup:
+    name: Battery Backup Mode
+    icon: mdi:battery
+  battery_forcecharge:
+    name: Battery Force Charge
+    icon: mdi:battery
+  battery_autocharge:
+    name: Battery Auto Charge
+    icon: mdi:battery
+
+
+sensor:
+#SolaX builtin integration
+- platform: solax
+  ip_address: 192.168.1.16
+- platform: solax
+  ip_address: 192.168.1.18
+
+#Custom Sensors
+- platform: template
+  sensors:
+    excess_solar_power: # Produce a sensor for "Excess Solar" being generated
+      friendly_name: "Excess Solar Power"
+      value_template: "{{ states(('sensor.x1master_pv_total_power') + ('sensor.x1slave_pv_total_power')) | int - states(('sensor.x1master_inverter_power') + ('sensor.x1slave_inverter_power')) | int }}"
+      unit_of_measurement: 'W'
+
+    pv_total_power: # total PV power
+      friendly_name: "Total PV Power"
+      value_template: "{{ states('sensor.x1master_pv_total_power') | int + states('sensor.x1slave_pv_total_power') | int }}"
+      unit_of_measurement: 'W'
+
+    total_battery_power: # Total Battery power
+      friendly_name: "Total Battery Power"
+      value_template: "{{ states('sensor.x1master_battery_power_charge') | int + states('sensor.x1slave_battery_power_charge') | int }}"
+      unit_of_measurement: 'W'
+
+# Monitors input_number.solax_battery_charge_price and sensor.octopus_agile_current_rate (OctoBlock integration)
+# and reflects true or false allowing automation(s) to turn on SolaX battery charging at desired p/kWh
+    battery_charge_price:
+      friendly_name: "Battery Charge @ p/kWh"
+      value_template: >
+        {% if states('sensor.octopus_agile_current_rate') | round(2) <= states('input_number.battery_charge_price') | round(2) %}
+          On
+        {% else %}
+          Off
+        {% endif %}
+
+    battery_charge_avgagile_price:
+      friendly_name: "Battery Charge @ avg Price"
+      value_template: >
+        {% if states('sensor.octopus_agile_current_rate') | round(2) <= states('octopusagile.avg_rate_exc_peak') | round(2) -2 %}
+          On
+        {% else %}
+          Off
+        {% endif %}
+
+automation:
+  - alias: Battery Charge Rate
+    trigger:
+    - platform: state
+      entity_id: input_number.house_battery_charge
+    action:
+    - service: modbus.write_register # Battery Charge
+      data_template:
+        hub: X1Master
+        unit: '255'
+        address: '36'
+        value: "{{ (trigger.to_state.state | float * 100) | int }}"
+    - delay: '00:00:01'
+    - service: modbus.write_register # Repeast Battery Charge incase Inverter missed first
+      data_template:
+        hub: X1Slave
+        unit: '255'
+        address: '36'
+        value: "{{ (trigger.to_state.state | float * 100) | int }}"
+    - delay: '00:00:01'
+    - service: modbus.write_register # Battery Charge
+      data_template:
+        hub: X1Master
+        unit: '255'
+        address: '36'
+        value: "{{ (trigger.to_state.state | float * 100) | int }}"
+    - delay: '00:00:01'
+    - service: modbus.write_register # Repeast Battery Charge incase Inverter missed first
+      data_template:
+        hub: X1Slave
+        unit: '255'
+        address: '36'
+        value: "{{ (trigger.to_state.state | float * 100) | int }}"
+
+  - alias: Battery Disharge Rate
+    trigger:
+    - platform: state
+      entity_id: input_number.house_battery_discharge
+    action:
+    - service: modbus.write_register # Battery Discharge
+      data_template:
+        hub: X1Master
+        unit: '255'
+        address: '37'
+        value: "{{ (trigger.to_state.state | float * 100) | int }}"
+    - delay: '00:00:01'
+    - service: modbus.write_register # Repeat Battery Discharge incase Inverter missed first
+      data_template:
+        hub: X1Slave
+        unit: '255'
+        address: '37'
+        value: "{{ (trigger.to_state.state | float * 100) | int }}"
+    - delay: '00:00:01'
+    - service: modbus.write_register # Battery Discharge
+      data_template:
+        hub: X1Master
+        unit: '255'
+        address: '37'
+        value: "{{ (trigger.to_state.state | float * 100) | int }}"
+    - delay: '00:00:01'
+    - service: modbus.write_register # Repeat Battery Discharge incase Inverter missed first
+      data_template:
+        hub: X1Slave
+        unit: '255'
+        address: '37'
+        value: "{{ (trigger.to_state.state | float * 100) | int }}"
+
+# Rest input_number.battery_charge_price
+  - alias: "Reset Changed input_numbers"
+    trigger:
+    - platform: time
+      at: '07:59:00'
+    action:
+    - service: input_number.set_value
+      data:
+        value: 9
+      entity_id: input_number.battery_charge_price
+    - service: input_number.set_value
+      data:
+        value: 95
+      entity_id: input_number.battery_min_energy
+
+# OctopusGO
+# Solax Battery - Start charging @ OctopusGO Cheap Rate
+  - alias: OctopusGo - Battery Force Charge On
+    trigger:
+    - platform: time
+      at: 00:30:00
+    action:
+    - service: input_boolean.turn_on
+      entity_id: group.battery_forcecharge
+    - service: input_number.set_value
+      data:
+        value: 100
+      entity_id: input_number.solax_battery_min_energy
+# Solax Battery - Stop charging @ OctopusGO Standard Rate
+  - alias: OctopusGo - Battery Force Charge Off
+    trigger:
+    - platform: time
+      at: 04:30:00
+    action:
+    - service: input_boolean.turn_off
+      entity_id: group.battery_forcecharge
+    - service: input_number.set_value
+      data:
+        value: 20
+      entity_id: input_number.solax_battery_min_energy
+
+# OctopusAgile
+# Charge SolaX battery based on input_number.solax_charge_price
+  - alias: OctopusAgile - Battery Manual Charge On
+    trigger:
+    - platform: state
+      entity_id: sensor.battery_charge_price
+      to: 'On'
+    action:
+    - service: notify.mjp
+      data:
+        message: Battery Charging
+    - service: input_boolean.turn_on
+      entity_id: group.battery_forcecharge
+
+# Discharge SolaX battery based on input_number.solax_charge_price
+  - alias: OctopusAgile - Battery Manual Charge Off
+    trigger:
+    - platform: state
+      entity_id: sensor.battery_charge_price
+      to: 'Off'
+    action:
+    - service: notify.mjp
+      data:
+        message: Battery Discharging
+    - service: input_boolean.turn_off
+      entity_id: group.battery_forcecharge
+
+# Charge SolaX battery based on input_number.solax_charge_avgagile_price
+  - alias: OctopusAgile - Battery Auto Charge On
+    trigger:
+    - platform: state
+      entity_id: sensor.battery_charge_avgagile_price
+      to: 'On'
+    action:
+    - service: notify.mjp
+      data:
+        message: Battery Charging
+    - service: input_boolean.turn_on
+      entity_id: group.battery_forcecharge
+
+# Discharge SolaX battery based on input_number.solax_charge_avgagile_price
+  - alias: OctopusAgile - Battery Auto Charge Off
+    trigger:
+    - platform: state
+      entity_id: sensor.battery_charge_avgagile_price
+      to: 'Off'
+    action:
+    - service: notify.mjp
+      data:
+        message: Battery Discharging
+    - service: input_boolean.turn_off
+      entity_id: group.battery_forcecharge
+
+#  Set SolaX battery minimum capacity based on input_select.octopus_price
+  - alias: "OctopusAgile - Battery % Plunge"
+    trigger:
+    - platform: state
+      entity_id: input_select.octopus_price
+      to: 'Plunge'
+    action:
+    - service: input_number.set_value
+      data:
+        value: 95
+      entity_id: input_number.battery_min_energy
+
+  - alias: "OctopusAgile - Battery % Low"
+    trigger:
+    - platform: state
+      entity_id: input_select.octopus_price
+      to: 'Low'
+    condition:
+    - condition: time
+      before: '00:00:00'
+      after: '08:00:00'
+    action:
+    - service: input_number.set_value
+      data:
+        value: 50
+      entity_id: input_number.battery_min_energy
+
+  - alias: "OctopusAgile - Battery % Medium"
+    trigger:
+    - platform: state
+      entity_id: input_select.octopus_price
+      to: 'Medium'
+    condition:
+    - condition: time
+      before: '00:00:00'
+      after: '08:00:00'
+    action:
+    - service: input_number.set_value
+      data:
+        value: 40
+      entity_id: input_number.battery_min_energy
+
+  - alias: "OctopusAgile - Battery % High"
+    trigger:
+    - platform: state
+      entity_id: input_select.octopus_price
+      to: 'High'
+    condition:
+    - condition: time
+      before: '00:00:00'
+      after: '08:00:00'
+    action:
+    - service: input_number.set_value
+      data:
+        value: 30
+      entity_id: input_number.battery_min_energy
+
+  - alias: "OctopusAgile - Battery % Peak"
+    trigger:
+    - platform: state
+      entity_id: input_select.octopus_price
+      to: 'Peak'
+    condition:
+    - condition: time
+      before: '00:00:00'
+      after: '08:00:00'
+    action:
+    - service: input_boolean.turn_off
+      entity_id: group.battery_forcecharge
+    - service: input_boolean.turn_off
+      entity_id: group.battery_backup
+    - service: input_number.set_value
+      data:
+        value: 20
+      entity_id: input_number.battery_min_energy
+
+# Enable/Disable EPS Mode
+  - alias: Battery - Backup On
+    trigger:
+    - platform: state
+      entity_id: input_boolean.battery_backup
+      to: 'on'
+    action:
+    - service: input_boolean.turn_off
+      entity_id: group.battery_forcecharge
+    - service: input_boolean.turn_on
+      entity_id: group.battery_backup
+    - delay: 00:00:10
+    - service: modbus.write_register
+      data_template:
+        hub: X1Master
+        unit: '255'
+        address: '31'
+        value: '2'
+    - service: modbus.write_register
+      data_template:
+        hub: X1Slave
+        unit: '255'
+        address: '31'
+        value: '2'
+    - delay: '00:00:10'
+    - service: modbus.write_register
+      data_template:
+        hub: X1Master
+        unit: '255'
+        address: '31'
+        value: '2'
+    - service: modbus.write_register
+      data_template:
+        hub: X1Slave
+        unit: '255'
+        address: '31'
+        value: '2'
+
+  - alias: Battery - Backup Off
+    trigger:
+    - platform: state
+      entity_id: input_boolean.battery_backup
+      to: 'off'
+    action:
+    - service: input_boolean.turn_off
+      entity_id: group.battery_backup
+    - service: modbus.write_register
+      data_template:
+        hub: X1Master
+        unit: '255'
+        address: '31'
+        value: '0'
+    - service: modbus.write_register
+      data_template:
+        hub: X1Slave
+        unit: '255'
+        address: '31'
+        value: '0'
+    - delay: '00:00:10'
+    - service: modbus.write_register # Auto Mode
+      data_template:
+        hub: X1Master
+        unit: '255'
+        address: '31'
+        value: '0'
+    - service: modbus.write_register # Auto Mode
+      data_template:
+        hub: X1Slave
+        unit: '255'
+        address: '31'
+        value: '0'
+
+# Enable/Disable Force Charge/Self Use Modes
+  - alias: Battery - Force Charge On
+    trigger:
+    - platform: state
+      entity_id: input_boolean.battery_forcecharge
+      to: 'on'
+    action:
+    - service: input_boolean.turn_off
+      entity_id: group.battery_backup
+    - delay: 00:00:10
+    - service: modbus.write_register # Force Time Mode
+      data_template:
+        hub: X1Master
+        unit: '255'
+        address: '31'
+        value: '1'
+    - service: modbus.write_register # Force Time Mode
+      data_template:
+        hub: X1Slave
+        unit: '255'
+        address: '31'
+        value: '1'
+    - delay: '00:00:10'
+    - service: modbus.write_register # Force Time Mode
+      data_template:
+        hub: X1Master
+        unit: '255'
+        address: '31'
+        value: '1'
+    - service: modbus.write_register # 2nd Force Time Mode incase Inverter missed first
+      data_template:
+        hub: X1Slave
+        unit: '255'
+        address: '31'
+        value: '1'
+
+  - alias: Battery - Force Charge Off
+    trigger:
+    - platform: state
+      entity_id: input_boolean.battery_forcecharge
+      to: 'off'
+    action:
+    - service: modbus.write_register # Auto Mode
+      data_template:
+        hub: X1Master
+        unit: '255'
+        address: '31'
+        value: '0'
+    - service: modbus.write_register # Auto Mode
+      data_template:
+        hub: X1Slave
+        unit: '255'
+        address: '31'
+        value: '0'
+    - delay: '00:00:10'
+    - service: modbus.write_register # 2nd Auto Mode incase Inverter missed first
+      data_template:
+        hub: X1Master
+        unit: '255'
+        address: '31'
+        value: '0'
+    - service: modbus.write_register # 2nd Auto Mode incase Inverter missed first
+      data_template:
+        hub: X1Slave
+        unit: '255'
+        address: '31'
+        value: '0'

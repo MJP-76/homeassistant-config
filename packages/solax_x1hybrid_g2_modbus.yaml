@@ -1,0 +1,131 @@
+# Solax SK-SU5000E Inverter & 3 x Pylontech US3000 Batteries
+# SolaX SK-SU5000E
+# https://www.solaxpower.com/wp-content/uploads/2017/01/X-Hybrid-Install-Guide.pdf
+# https://www.solaxpower.com/wp-content/uploads/2017/11/SK-SU-datasheetNL-.pdf
+# Pylontech US3000 batteries tech spec 37 (Recommend) 74 (Max) 100 (Peak@15s)
+# http://www.pylontech.com.cn/pro_detail.aspx?id=121&cid=23
+
+# Based on https://github.com/wills106/homeassistant-config/blob/master/packages/x1master_x1_hybrid_g3_triplepower.yaml
+#
+# Will not work prior to 2020.12.0 version of Home Assistant
+#
+modbus:
+  - name: "X1Slave"
+    type: tcp # Comment out for RS485
+    host: !secret x1slave_lan_ip # Comment out for RS485
+    port: 502 # Comment out for RS485
+    sensors:
+# Test Registers
+      - name: X1Slave BMS Warning
+        address: 31
+        input_type: input
+        scan_interval: 2
+      - name: X1Slave battery State of Health # Value Not Clear
+        address: 35
+        input_type: input
+        scan_interval: 2
+
+# Battery Awaken
+#     - name: X1Slave Battery Awaken
+#       address:
+#       input_type: input
+#       scan_interval: 2
+
+# Test Holding Registers
+      - name: X1Slave Serial Number
+        address: 0
+        count: 7
+        data_type: string
+        scan_interval: 2
+
+# Holding Registers
+      - name: X1Slave Group h1
+        address: 139
+        count: 19
+        data_type: custom
+        structure: ">19H"
+        scan_interval: 2
+
+      - name: X1Slave Group h2
+        address: 180
+        count: 8
+        data_type: custom
+        structure: ">8H"
+        scan_interval: 2
+
+# Input Registers
+      - name: X1Slave Group i1
+        address: 0
+        input_type: input
+        count: 30
+        data_type: custom
+        structure: ">H2h5Hh3Hh7H3hHh5H"
+        scan_interval: 2
+
+      - name: X1Slave Group i2
+        address: 70
+        input_type: input
+        count: 14
+        data_type: custom
+        structure: ">2h10HI"
+        scan_interval: 2
+
+  - name: "X1Master"
+    type: tcp # Comment out for RS485
+    host: !secret x1master_lan_ip # Comment out for RS485
+    port: 502 # Comment out for RS485
+    sensors:
+# Test Registers
+      - name: X1Master BMS Warning
+        address: 31
+        input_type: input
+        scan_interval: 2
+      - name: X1Master Battery State of Health # Value Not Clear
+        address: 35
+        input_type: input
+        scan_interval: 2
+
+# Battery Awaken
+#     - name: X1Master Battery Awaken
+#       address:
+#       input_type: input
+#       scan_interval: 2
+
+# Test Holding Registers
+      - name: X1Master Serial Number
+        address: 0
+        count: 7
+        data_type: string
+        scan_interval: 2
+
+# Holding Registers
+      - name: X1Master Group h1
+        address: 139
+        count: 19
+        data_type: custom
+        structure: ">19H"
+        scan_interval: 2
+
+      - name: X1Master Group h2
+        address: 180
+        count: 8
+        data_type: custom
+        structure: ">8H"
+        scan_interval: 2
+
+# Input Registers
+      - name: X1Master Group i1
+        address: 0
+        input_type: input
+        count: 30
+        data_type: custom
+        structure: ">H2h5Hh3Hh7H3hHh5H"
+        scan_interval: 2
+
+      - name: X1Master Group i2
+        address: 70
+        input_type: input
+        count: 14
+        data_type: custom
+        structure: ">2h10HI"
+        scan_interval: 2
